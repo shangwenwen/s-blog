@@ -1,1 +1,1 @@
-# webpack-boilerplate  sdd
+# webpack-boilerplate
