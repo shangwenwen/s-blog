@@ -1,5 +1,5 @@
-import { put } from 'redux-saga/effects';
+import { put } from 'redux-saga/effects'
 
 export default function* rootSaga() {
-  yield put({ type: 'CLICK' });
+  yield put({ type: 'CLICK' })
 }

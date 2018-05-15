@@ -1,12 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { Router } from 'react-router-dom';
-import { configureStore, history } from './_helpers';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+import { Router } from 'react-router-dom'
+import { configureStore, history } from './_helpers'
 
-import AppContainer from './APP';
+import AppContainer from './APP'
 
-const store = configureStore();
+const store = configureStore()
 
 ReactDOM.render(
   <Provider store={store}>
@@ -15,4 +15,4 @@ ReactDOM.render(
     </Router>
   </Provider>,
   document.getElementById('root')
-);
+)

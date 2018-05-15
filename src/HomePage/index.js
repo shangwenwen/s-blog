@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 class HomeContainer extends Component {
 
   render() {
     return (
       <div>shang</div>
-    );
+    )
   }
 }
 
-export default HomeContainer;
+export default HomeContainer
