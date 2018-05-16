@@ -1,0 +1,110 @@
+$main-color: red;
+$padding-left: 1rem;
+
+@custom-media --viewport-medium screen and (width >= 500px) and (width <= 1200px);
+
+/* custom-selector */
+@custom-selector :--heading h1, h2;
+
+.sub :--heading {
+  list-style: none;
+}
+
+/*nesting*/
+.main {
+  display    : flex;
+  background : url(01.jpg) no-repeat;
+  /*background: #000;*/
+  padding-left: calc($padding-left / 3);
+
+  &:hover {
+    padding : 10px;
+  }
+
+  & :--heading {
+    list-style: none;
+  }
+
+  @nest span & {
+    color : hwb(90, 0%, 0%, 0.5);
+  }
+
+  @media (--viewport-medium) {
+    color : yellow;
+  }
+}
+
+/*mixins*/
+@define-mixin font-smoothing {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-shadow: 1px 1px 1px rgba(get-color(black), 0.004);
+}
+
+.font {
+  @mixin font-smoothing
+}
+
+@define-mixin keyframes $name {
+  @-webkit-keyframes $(name) {
+    @mixin-content;
+  }
+  @-moz-keyframes $(name) {
+    @mixin-content;
+  }
+  @-ms-keyframes $(name) {
+    @mixin-content;
+  }
+  @keyframes $(name) {
+    @mixin-content;
+  }
+}
+
+@mixin keyframes shake {
+  from {
+    transform: translate3d(0, -100%, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.shake {
+  animation-name: shake;
+}
+
+
+
+@define-mixin placeholder {
+  &::-webkit-input-placeholder {
+    @mixin-content;
+  }
+  &:-moz-placeholder {
+    @mixin-content;
+  }
+  &::-moz-placeholder {
+    @mixin-content;
+  }
+  &:-ms-input-placeholder {
+    @mixin-content;
+  }
+}
+
+.input {
+  color: blue;
+
+  @mixin placeholder {
+    padding: 10px;
+  };
+}
+
+/*image-set*/
+.foo {
+    background-image:
+      image-set(
+        url(01.jpg) 1x,
+        url(01.jpg) 2x,
+        url(01.jpg) 600dpi
+      );
+}
