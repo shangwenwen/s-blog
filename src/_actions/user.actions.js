@@ -1,5 +1,11 @@
-import { userService } from '../_services'
-import { userConstants } from '../_constants'
+import {
+  userService
+}
+from '../_services'
+import {
+  userConstants
+}
+from '../_constants'
 import Cookies from 'js-cookie'
 
 export const userActions = {
@@ -10,39 +16,37 @@ export const userActions = {
 // login
 
 function login(username, password) {
+  const success = (result) => {
+        dispatch({
+            type: 'CREATE_POST_SUCCESS',
+            payload: result
+        })
+        return result
+    }
+    
   return async(dispatch) => {
     try {
-      dispatch(request({username}))
-      await userService.login(username, password)
-        .then((res) => {
-          // console.log(res.data)
-          // dispatch(success(res.data))
-          console.log(Cookies.get())
-          if (res.data.code === 200) {
-            // dispatch(success(res.data.data))
-          }
-        }).catch((error) => {
-
-        })
-    } catch(e) {
-
+      dispatch(request())
+      const res = await userService.login(username, password)
+      return dispatch(success(res.data.data))
+    } catch (e) {
+      console.log(e)
     } finally {
-
+      console.log('ss')
     }
 
   }
 
-  function request(user) {
+  function request() {
     return {
-      type: userConstants.LOGIN_REQUEST,
-      user
+      type: userConstants.LOGIN_REQUEST
     }
   }
 
-  function success(user) {
+  function success(token) {
     return {
       type: userConstants.LOGIN_SUCCESS,
-      user
+      token
     }
   }
 
