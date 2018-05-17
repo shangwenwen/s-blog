@@ -23,7 +23,7 @@ function login(username, password) {
         })
         return result
     }
-    
+
   return async(dispatch) => {
     try {
       dispatch(request())
