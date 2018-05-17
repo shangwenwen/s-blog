@@ -1,5 +1,6 @@
 import { userService } from '../_services'
 import { userConstants } from '../_constants'
+import Cookies from 'js-cookie'
 
 export const userActions = {
   login,
@@ -7,25 +8,28 @@ export const userActions = {
 }
 
 // login
-function login(username, password) {
-  return async (dispatch) => {
-    try {
-      dispatch(request(username))
 
+function login(username, password) {
+  return async(dispatch) => {
+    try {
+      dispatch(request({username}))
       await userService.login(username, password)
-        .then(
-          user => {
-            dispatch(success(user))
+        .then((res) => {
+          // console.log(res.data)
+          // dispatch(success(res.data))
+          console.log(Cookies.get())
+          if (res.data.code === 200) {
+            // dispatch(success(res.data.data))
           }
-        )
-        .catch((error) => {
-          dispatch(failure(error))
+        }).catch((error) => {
+
         })
-    } catch (error) {
-      console.log('error:', error)
+    } catch(e) {
+
     } finally {
-      console.log('finally')
+
     }
+
   }
 
   function request(user) {
@@ -52,14 +56,14 @@ function login(username, password) {
 
 // logout
 function logout() {
-  return async (dispatch) => {
+  return async(dispatch) => {
     try {
       await userService.logout()
         .then(() => {
           dispatch(logout())
           console.log('登出成功')
         })
-    } catch (error) {
+    } catch(error) {
       console.log('登出失败')
     }
   }

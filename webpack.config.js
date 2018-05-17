@@ -70,7 +70,7 @@ const common = {
 };
 
 // BUILD
-if (TARGET === 'production') {
+if(TARGET === 'production') {
   module.exports = merge(common, {
     output: {
       path: outputPath,
@@ -126,7 +126,7 @@ if (TARGET === 'production') {
 }
 
 // DEV
-if (TARGET === 'start') {
+if(TARGET === 'start') {
   module.exports = merge(common, {
     output: {
       path: dirDist
@@ -157,6 +157,13 @@ if (TARGET === 'start') {
     plugins: [
       new webpack.NamedModulesPlugin()
     ],
-    devtool: 'cheap-module-eval-source-map'
+    devtool: 'cheap-module-eval-source-map',
+    devServer: {
+      port: 8080,
+      host: '127.0.0.1',
+      proxy: {
+        '/api': 'http://localhost:4000'
+      }
+    }
   });
 }
