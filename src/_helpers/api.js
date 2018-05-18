@@ -7,7 +7,6 @@ const apiConfig = {
 
 const checkStatus = (response) => {
   if (response.status === 200 || response.status === 304) {
-    console.log(response)
     return response
   }
 

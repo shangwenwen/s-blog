@@ -12,13 +12,13 @@ $padding-left: 1rem;
 
 /*nesting*/
 .main {
-  display    : flex;
+  /* display    : flex; */
   /* background : url(01.jpg) no-repeat; */
   /*background: #000;*/
-  padding-left: calc($padding-left / 3);
+  /* padding-left: calc($padding-left / 3); */
 
   &:hover {
-    padding : 10px;
+    /* padding : 10px; */
   }
 
   & :--heading {
