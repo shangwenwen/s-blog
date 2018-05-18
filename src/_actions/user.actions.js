@@ -1,12 +1,6 @@
-import {
-  userService
-}
-from '../_services'
-import {
-  userConstants
-}
-from '../_constants'
-  // import cookies from 'js-cookie'
+import { userService } from '../_services'
+import { userConstants } from '../_constants'
+// import cookies from 'js-cookie'
 
 export const userActions = {
   login,
@@ -14,7 +8,6 @@ export const userActions = {
 }
 
 // login
-
 function login(username, password) {
   const request = () => ({
     type: userConstants.LOGIN_REQUEST
@@ -33,6 +26,7 @@ function login(username, password) {
   return async dispatch => {
     try {
       dispatch(request())
+
       await userService.login(username, password)
         .then(
           res => {
@@ -45,13 +39,11 @@ function login(username, password) {
         )
         .catch(
           error => {
-            console.log(error)
+            return dispatch(failure(error))
           }
         )
-    } catch(e) {
-      console.log(e)
-    } finally {
-      console.log('finally')
+    } catch(error) {
+      dispatch(failure(error))
     }
   }
 }
@@ -70,8 +62,6 @@ function logout() {
         })
     } catch(error) {
       console.log('登出失败')
-    } finally {
-      console.log('登出成功')
     }
   }
 
