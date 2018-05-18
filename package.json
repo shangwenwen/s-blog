@@ -1,10 +1,11 @@
 {
-  "name": "webpack-boilerplate",
+  "name": "s-blog",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "http://github.com/shangwenwen/webpack-boilerplate",
+  "repository": "http://github.com/shangwenwen/s-blog.git",
   "author": "shangwenwen",
   "license": "MIT",
+  "private": true,
   "scripts": {
     "preproduction": "rm -rf dist",
     "production": "yarn run eslint && webpack --mode production --progress --colors",

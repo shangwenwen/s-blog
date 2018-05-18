@@ -1,1 +1,0 @@
-{"version":3,"file":"main_2f6272ad.js","sources":["webpack:///./src/HomePage/index.js"],"sourcesContent":["import React, { Component } from 'react';\r\n\r\nclass HomeContainer extends Component {\r\n\r\n  render() {\r\n    return (\r\n      <div>shang</div>\r\n    );\r\n  }\r\n}\r\n\r\nexport default HomeContainer;\r\n"],"mappings":"AAAA","sourceRoot":""}
