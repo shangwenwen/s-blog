@@ -1,1 +1,1 @@
-# webpack-boilerplate eeeds
+# webpack-boilerplate eeedd
