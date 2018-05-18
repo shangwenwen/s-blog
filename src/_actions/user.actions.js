@@ -4,7 +4,7 @@ import { userConstants } from '../_constants'
 
 export const userActions = {
   login,
-  logouts
+  logout
 }
 
 // login
