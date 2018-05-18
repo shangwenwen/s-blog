@@ -1,1 +1,1 @@
-# webpack-boilerplate shang
+# webpack-boilerplate sh
