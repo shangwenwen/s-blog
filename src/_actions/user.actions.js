@@ -1,6 +1,12 @@
-import { userService } from '../_services'
-import { userConstants } from '../_constants'
-// import cookies from 'js-cookie'
+import {
+  userService
+}
+from '../_services'
+import {
+  userConstants
+}
+from '../_constants'
+  // import cookies from 'js-cookie'
 
 export const userActions = {
   login,
@@ -30,7 +36,7 @@ function login(username, password) {
       await userService.login(username, password)
         .then(
           res => {
-            if (res.data.code === -200 && res.data.data === '') {
+            if(res.data.code === -200 && res.data.data === '') {
               return dispatch(failure(res.data.message))
             }
 
@@ -42,7 +48,7 @@ function login(username, password) {
             console.log(error)
           }
         )
-    } catch (e) {
+    } catch(e) {
       console.log(e)
     } finally {
       console.log('finally')
@@ -56,15 +62,16 @@ function logout() {
     type: userConstants.LOGOUT
   })
 
-  return async (dispatch) => {
+  return async(dispatch) => {
     try {
       await userService.logout()
         .then(() => {
           dispatch(logout())
-          console.log('登出成功')
         })
-    } catch (error) {
+    } catch(error) {
       console.log('登出失败')
+    } finally {
+      console.log('登出成功')
     }
   }
 
