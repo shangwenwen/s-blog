@@ -1,16 +1,6 @@
 import { Api } from '../_helpers'
 
-export const userService = {
-  login,
-  logout
-}
+const login = (username, password) => Api.post('/frontend/user/login', { username, password })
+const logout = () => Api.post('/frontend/user/logout', {})
 
-function login(username, password) {
-  return Api.post('/frontend/user/login', {
-    username, password
-  })
-}
-
-function logout() {
-  return Api.post('/frontend/user/logout', {})
-}
+export const userService = { login, logout }
