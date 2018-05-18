@@ -3,8 +3,6 @@ import { connect } from 'react-redux'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import { hot } from 'react-hot-loader'
 
-import { userActions } from '../_actions'
-
 // components & containers
 import HomeContainer from '../HomePage'
 
@@ -14,8 +12,6 @@ import '../_assets/style.css'
 class AppContainer extends Component {
 
   render() {
-    const { login } = this.props
-    login('admin', '11111111')
 
     return (
       <div className="main">
@@ -36,8 +32,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = {
-  login: userActions.login
-}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(hot(module)(AppContainer)))
+export default withRouter(connect(mapStateToProps, null)(hot(module)(AppContainer)))

@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const userService = {
-  loginAsync
+  login
 }
 
 function checkStatus(response) {
@@ -18,7 +18,7 @@ function checkStatus(response) {
   }
 }
 
-function loginAsync(username, password) {
+function login(username, password) {
   return axios({
     method: 'post',
     url: '/api/frontend/user/login',

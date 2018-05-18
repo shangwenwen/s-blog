@@ -13,7 +13,7 @@ $padding-left: 1rem;
 /*nesting*/
 .main {
   display    : flex;
-  background : url(01.jpg) no-repeat;
+  /* background : url(01.jpg) no-repeat; */
   /*background: #000;*/
   padding-left: calc($padding-left / 3);
 

@@ -13,7 +13,7 @@ export function userReducer(state = new Map(), action) {
       })
     case userConstants.LOGIN_SUCCESS:
       return state.merge({
-        // 'token': action.token,
+        'token': action.user,
         'isPending': false,
         'error': null
       })
