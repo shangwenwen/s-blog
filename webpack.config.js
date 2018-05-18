@@ -160,7 +160,7 @@ if(TARGET === 'start') {
     devtool: 'cheap-module-eval-source-map',
     devServer: {
       port: 8080,
-      host: '127.0.0.1',
+      host: 'localhost',
       proxy: {
         '/api': 'http://localhost:4000'
       }

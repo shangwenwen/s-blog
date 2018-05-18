@@ -14,7 +14,7 @@ import '../_assets/style.css'
 class AppContainer extends Component {
 
   render() {
-    const {login} = this.props
+    const { login } = this.props
     login('admin', '11111111')
 
     return (

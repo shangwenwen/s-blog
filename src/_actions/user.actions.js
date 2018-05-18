@@ -1,12 +1,6 @@
-import {
-  userService
-}
-from '../_services'
-import {
-  userConstants
-}
-from '../_constants'
-import Cookies from 'js-cookie'
+import { userService } from '../_services'
+import { userConstants } from '../_constants'
+// import Cookies from 'js-cookie'
 
 export const userActions = {
   login,
@@ -16,32 +10,19 @@ export const userActions = {
 // login
 
 function login(username, password) {
-  const success = (result) => {
-        dispatch({
-            type: 'CREATE_POST_SUCCESS',
-            payload: result
-        })
-        return result
-    }
 
-  return async(dispatch) => {
-    try {
-      dispatch(request())
-      const res = await userService.login(username, password)
-      return dispatch(success(res.data.data))
-    } catch (e) {
-      console.log(e)
-    } finally {
-      console.log('ss')
-    }
-
+  return dispatch => {
+    userService.loginAsync(username, password)
+      .then(
+        // res => dispatch(success(res.data.data))
+      )
   }
 
-  function request() {
-    return {
-      type: userConstants.LOGIN_REQUEST
-    }
-  }
+  // function request() {
+  //   return {
+  //     type: userConstants.LOGIN_REQUEST
+  //   }
+  // }
 
   function success(token) {
     return {
@@ -50,24 +31,24 @@ function login(username, password) {
     }
   }
 
-  function failure(error) {
-    return {
-      type: userConstants.LOGIN_FAILURE,
-      error
-    }
-  }
+  // function failure(error) {
+  //   return {
+  //     type: userConstants.LOGIN_FAILURE,
+  //     error
+  //   }
+  // }
 }
 
 // logout
 function logout() {
-  return async(dispatch) => {
+  return async (dispatch) => {
     try {
       await userService.logout()
         .then(() => {
           dispatch(logout())
           console.log('登出成功')
         })
-    } catch(error) {
+    } catch (error) {
       console.log('登出失败')
     }
   }

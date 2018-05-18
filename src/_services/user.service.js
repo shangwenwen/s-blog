@@ -1,17 +1,12 @@
 import axios from 'axios'
-import qs from 'qs'
-  // import es6Promise from 'es6-promise'
-  // import isomorphic from 'isomorphic-fetch'
-
-// es6Promise.polyfill()
 
 export const userService = {
-  login
+  loginAsync
 }
 
 function checkStatus(response) {
   // NProgress.done()
-  if(response.status === 200 || response.status === 304) {
+  if (response.status === 200 || response.status === 304) {
     return response
   }
   return {
@@ -23,17 +18,16 @@ function checkStatus(response) {
   }
 }
 
-function login(username, password) {
+function loginAsync(username, password) {
   return axios({
-      method: 'post',
-      url: '/api/frontend/user/login',
-      data: {
-        username, password
-      },
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-        'Accept': 'application/json'
-      }
-    })
+    method: 'post',
+    url: '/api/frontend/user/login',
+    data: {
+      username, password
+    },
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest'
+    }
+  })
     .then(checkStatus)
 }
