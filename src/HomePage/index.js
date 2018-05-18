@@ -4,14 +4,21 @@ import { userActions } from '../_actions'
 
 class HomeContainer extends Component {
 
-  handleAdmin() {
-    const {login} = this.props
+  handleLogin() {
+    const { login } = this.props
     login('admin', '11111111')
+  }
+
+  handleLogout() {
+    this.props.logout()
   }
 
   render() {
     return (
-      <div onClick={this.handleAdmin.bind(this)}>shang</div>
+      <div>
+        <div onClick={this.handleLogin.bind(this)}>shang</div>
+        <div onClick={this.handleLogout.bind(this)}>退出</div>
+      </div>
     )
   }
 }
@@ -24,7 +31,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-  login: userActions.login
+  login: userActions.login,
+  logout: userActions.logout
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer)

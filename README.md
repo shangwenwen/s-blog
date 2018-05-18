@@ -1,5 +1,5 @@
 # webpack-boilerplate eeedd
 
-b76c85ebafc777fd53384ebd2cf337c95708fc82
+8bf53dd3e9d38c0290c6411fb61b939a9a7ef6c5
 
 27633fb3e0f78d42a2173de7b862a950

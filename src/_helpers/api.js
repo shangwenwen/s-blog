@@ -1,7 +1,13 @@
 import axios from 'axios'
 
+const apiConfig = {
+  baseURL: '/api',
+  timeout: 3000
+}
+
 const checkStatus = (response) => {
-  if(response.status === 200 || response.status === 304) {
+  if (response.status === 200 || response.status === 304) {
+    console.log(response)
     return response
   }
 
@@ -16,21 +22,25 @@ const checkStatus = (response) => {
 
 export const Api = {
   post: (url, data) => axios({
-      method: 'post',
-      url: url,
-      data: data,
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
-      }
-    })
+    method: 'post',
+    url: url,
+    baseURL: apiConfig.baseURL,
+    data: data,
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest'
+    },
+    timeout: apiConfig.timeout
+  })
     .then(checkStatus),
-  get: (url, parms) => axios({
-      method: 'get',
-      url: url,
-      parms: parms,
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
-      }
-    })
+  get: (url, params) => axios({
+    method: 'get',
+    url: url,
+    baseURL: apiConfig.baseURL,
+    params: params,
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest'
+    },
+    timeout: apiConfig.timeout
+  })
     .then(checkStatus)
 }
