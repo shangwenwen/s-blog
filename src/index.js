@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { Router } from 'react-router-dom'
-import { configureStore, history } from './_helpers'
+import { BrowserRouter as Router } from 'react-router-dom'
+import { configureStore } from './_helpers'
 
 import AppContainer from './App'
 
@@ -10,7 +10,7 @@ const store = configureStore()
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={history}>
+    <Router>
       <AppContainer />
     </Router>
   </Provider>,

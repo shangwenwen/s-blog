@@ -2,11 +2,6 @@ import { userService } from '../_services'
 import { userConstants } from '../_constants'
 // import cookies from 'js-cookie'
 
-export const userActions = {
-  login,
-  logout
-}
-
 // login
 function login(username, password) {
   const request = () => ({
@@ -64,5 +59,6 @@ function logout() {
       console.log('登出失败')
     }
   }
-
 }
+
+export const userActions = { login, logout }

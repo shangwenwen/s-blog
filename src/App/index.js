@@ -5,19 +5,21 @@ import { hot } from 'react-hot-loader'
 
 // components & containers
 import HomeContainer from '../HomePage'
+import ArticleContainer from '../ArticlePage'
+import AboutContainer from '../AboutPage'
 
 // css style
 import '../_assets/style.css'
 
 class AppContainer extends Component {
-
   render() {
-
     return (
       <div className="main">
         <div className="container">
           <Switch>
             <Route exact path="/" component={HomeContainer} />
+            <Route name="article" path="/article/:id" component={ArticleContainer} />
+            <Route name="about" path="/about" component={AboutContainer} />
           </Switch>
         </div>
       </div>
