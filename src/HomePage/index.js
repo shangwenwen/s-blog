@@ -3,6 +3,11 @@ import { connect } from 'react-redux'
 import { userActions } from '../_actions'
 
 class HomeContainer extends Component {
+  constructor(props) {
+    super(props)
+    this.handleLogin = this.handleLogin.bind(this)
+    this.handleLogout = this.handleLogout.bind(this)
+  }
 
   handleLogin() {
     const { login } = this.props
@@ -16,19 +21,17 @@ class HomeContainer extends Component {
   render() {
     return (
       <div>
-        <div onClick={this.handleLogin.bind(this)}>shang</div>
-        <div onClick={this.handleLogout.bind(this)}>退出</div>
+        <div onClick={this.handleLogin}>shang</div>
+        <div onClick={this.handleLogout}>退出</div>
       </div>
     )
   }
 }
 
 // connect redux
-const mapStateToProps = (state) => {
-  return {
-    user: state.user
-  }
-}
+const mapStateToProps = (state) => ({
+  user: state.user
+})
 
 const mapDispatchToProps = {
   login: userActions.login,

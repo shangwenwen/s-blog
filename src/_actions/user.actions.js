@@ -30,7 +30,7 @@ function login(username, password) {
       await userService.login(username, password)
         .then(
           res => {
-            if(res.data.code === -200 && res.data.data === '') {
+            if (res.data.code === -200 && res.data.data === '') {
               return dispatch(failure(res.data.message))
             }
 
@@ -42,7 +42,7 @@ function login(username, password) {
             return dispatch(failure(error))
           }
         )
-    } catch(error) {
+    } catch (error) {
       dispatch(failure(error))
     }
   }
@@ -54,13 +54,13 @@ function logout() {
     type: userConstants.LOGOUT
   })
 
-  return async(dispatch) => {
+  return async (dispatch) => {
     try {
       await userService.logout()
         .then(() => {
           dispatch(logout())
         })
-    } catch(error) {
+    } catch (error) {
       console.log('登出失败')
     }
   }
