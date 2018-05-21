@@ -9,11 +9,12 @@ const postcssConfig = require('./postcss.config.js');
 
 /* eslint-disable */
 
+// CONFIG
 const TARGET = process.env.npm_lifecycle_event
-const dirSrc = path.join(__dirname, './src')
-const dirDist = path.resolve(__dirname, 'dist')
-const htmlTemplate = path.join(__dirname, './src/index.html')
-const outputPath = path.resolve(__dirname, 'dist', 'assets')
+const SRCPATH = path.join(__dirname, './src')
+const TEMPLATEPATH = path.join(__dirname, './src/index.html')
+const OUTPUTPATH = path.resolve(__dirname, 'dist', 'assets')
+const PUBLICPATH = '/assets/'
 
 /* eslint-enable */
 
@@ -21,7 +22,9 @@ const outputPath = path.resolve(__dirname, 'dist', 'assets')
 const common = {
   entry: './src/index.js',
   output: {
-    filename: '[name]_[hash:8].js'
+    filename: '[name]_[hash:8].js',
+    path: OUTPUTPATH,
+    publicPath: PUBLICPATH
   },
   module: {
     rules: [
@@ -37,30 +40,30 @@ const common = {
             }
           }
         ],
-        include: dirSrc
+        include: SRCPATH
       },
       {
         test: /\.(eot|ttf|woff|svg)$/,
         use: 'file-loader',
-        include: dirSrc
+        include: SRCPATH
       },
       {
         test: /\.js$/,
         use: 'babel-loader',
-        include: dirSrc
+        include: SRCPATH
       },
       {
         test: /\.(htm|html)$/,
         use: {
           loader: 'html-loader?minimize=true'
         },
-        include: dirSrc
+        include: SRCPATH
       }
     ]
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: htmlTemplate,
+      template: TEMPLATEPATH,
       filename: 'index.html'
     })
   ],
@@ -72,10 +75,6 @@ const common = {
 // BUILD
 if(TARGET === 'production') {
   module.exports = merge(common, {
-    output: {
-      path: outputPath,
-      publicPath: '/assets/'
-    },
     module: {
       rules: [
         {
@@ -97,7 +96,7 @@ if(TARGET === 'production') {
               }
             ]
           }),
-          include: dirSrc
+          include: SRCPATH
         }
       ]
     },
@@ -128,10 +127,6 @@ if(TARGET === 'production') {
 // DEV
 if(TARGET === 'start') {
   module.exports = merge(common, {
-    output: {
-      path: dirDist,
-      publicPath: '/'
-    },
     module: {
       rules: [
         {
@@ -151,7 +146,7 @@ if(TARGET === 'start') {
               }
             }
           ],
-          include: dirSrc
+          include: SRCPATH
         }
       ]
     },
@@ -162,7 +157,7 @@ if(TARGET === 'start') {
     devServer: {
       // 刷新页面无 404
       historyApiFallback: {
-        index: '/index.html'
+        index: `${PUBLICPATH}index.html`
       },
       port: 8080,
       host: 'localhost',

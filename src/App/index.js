@@ -14,12 +14,11 @@ import '../_assets/style.css'
 
 class AppContainer extends Component {
   render() {
-    console.log('---')
     return (
       <div className="main">
-        <HeaderComponent location={this.props.location} history={this.props.history} />
+        <HeaderComponent />
         <div className="container">
-          <Switch key={this.props.location.pathname} location={this.props.location}>
+          <Switch>
             <Route exact path="/" component={CategoryContainer} />
             <Route name="category" path="/category/:category" component={CategoryContainer} />
             <Route name="post" path="/post/:id" component={PostContainer} />
@@ -34,7 +33,7 @@ class AppContainer extends Component {
 // connect redux
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user.toJS()
   }
 }
 

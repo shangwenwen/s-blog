@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link, NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { userActions } from '../_actions'
+
+// components & containers
+import { CategoryNavComponent } from '../_components'
 
 class CategoryContainer extends Component {
   constructor(props) {
@@ -22,15 +25,13 @@ class CategoryContainer extends Component {
   render() {
     return (
       <div>
+        <CategoryNavComponent />
         <div>
-          <NavLink to="/category/cate1">cate1</NavLink> /
-          <NavLink to="/category/cate2">cate2</NavLink> /
-          <NavLink to="/category/cate3">cate3</NavLink>
+          <div><Link to="/post/46457122">Category</Link></div>
+          <div><Link to="/post/46457122">Category</Link></div>
+          <div><Link to="/post/46457122">Category</Link></div>
+          <div><Link to="/post/46457122">Category</Link></div>
         </div>
-        <div><Link to="/post/46457122">Category</Link></div>
-        <div><Link to="/post/46457122">Category</Link></div>
-        <div><Link to="/post/46457122">Category</Link></div>
-        <div><Link to="/post/46457122">Category</Link></div>
         <div onClick={this.handleLogin}>shang</div>
         <div onClick={this.handleLogout}>退出</div>
       </div>
