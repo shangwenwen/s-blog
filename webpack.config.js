@@ -129,7 +129,8 @@ if(TARGET === 'production') {
 if(TARGET === 'start') {
   module.exports = merge(common, {
     output: {
-      path: dirDist
+      path: dirDist,
+      publicPath: '/'
     },
     module: {
       rules: [
@@ -159,10 +160,18 @@ if(TARGET === 'start') {
     ],
     devtool: 'cheap-module-eval-source-map',
     devServer: {
+      // 刷新页面无 404
+      historyApiFallback: {
+        index: '/index.html'
+      },
       port: 8080,
       host: 'localhost',
       proxy: {
-        '/api': 'http://localhost:4000'
+        '/api': {
+          target: 'http://localhost:4000',
+          secure: false,
+          changeOrigin: true
+        }
       }
     }
   });

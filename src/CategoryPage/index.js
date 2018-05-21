@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link, NavLink } from 'react-router-dom'
 import { userActions } from '../_actions'
 
-class HomeContainer extends Component {
+class CategoryContainer extends Component {
   constructor(props) {
     super(props)
     this.handleLogin = this.handleLogin.bind(this)
@@ -21,6 +22,15 @@ class HomeContainer extends Component {
   render() {
     return (
       <div>
+        <div>
+          <NavLink to="/category/cate1">cate1</NavLink> /
+          <NavLink to="/category/cate2">cate2</NavLink> /
+          <NavLink to="/category/cate3">cate3</NavLink>
+        </div>
+        <div><Link to="/post/46457122">Category</Link></div>
+        <div><Link to="/post/46457122">Category</Link></div>
+        <div><Link to="/post/46457122">Category</Link></div>
+        <div><Link to="/post/46457122">Category</Link></div>
         <div onClick={this.handleLogin}>shang</div>
         <div onClick={this.handleLogout}>退出</div>
       </div>
@@ -38,4 +48,4 @@ const mapDispatchToProps = {
   logout: userActions.logout
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryContainer)

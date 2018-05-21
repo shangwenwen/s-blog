@@ -3,6 +3,11 @@ $padding-left: 1rem;
 
 @custom-media --viewport-medium screen and (width >= 500px) and (width <= 1200px);
 
+body {
+  font-size: 13px;
+  padding: 0;
+  margin: 0
+}
 /* custom-selector */
 @custom-selector :--heading h1, h2;
 
@@ -16,6 +21,7 @@ $padding-left: 1rem;
   /* background : url(01.jpg) no-repeat; */
   /*background: #000;*/
   /* padding-left: calc($padding-left / 3); */
+  padding: 10px;
 
   &:hover {
     /* padding : 10px; */
