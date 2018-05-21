@@ -1,1 +1,1 @@
-# webpack-boilerplate eeedd
+# webpack-boilerplate 0523
