@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { userActions } from '../_actions'
+import { authActions, userActions } from '../_actions'
+
+// import cookies from 'js-cookie'
 
 // components & containers
 import { CategoryNavComponent } from '../_components'
@@ -16,6 +18,7 @@ class CategoryContainer extends Component {
   handleLogin() {
     const { login } = this.props
     login('admin', '11111111')
+    this.props.getUser()
   }
 
   handleLogout() {
@@ -45,8 +48,9 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-  login: userActions.login,
-  logout: userActions.logout
+  login: authActions.login,
+  logout: authActions.logout,
+  getUser: userActions.getUser
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryContainer)

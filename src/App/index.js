@@ -24,7 +24,7 @@ class AppContainer extends Component {
   render() {
     return (
       <div className="main">
-        <HeaderComponent isLogined={this.props.user.token} history={this.props.history} />
+        <HeaderComponent isLogined={this.props.auth.token} history={this.props.history} />
         <div className="container">
           <Switch>
             <Route exact path="/" component={CategoryContainer} />
@@ -43,7 +43,7 @@ class AppContainer extends Component {
 // connect redux
 const mapStateToProps = (state) => {
   return {
-    user: state.user.toJS()
+    auth: state.auth.toJS()
   }
 }
 

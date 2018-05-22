@@ -1,23 +1,25 @@
 import { Map } from 'immutable'
-import { userConstants } from '../_constants'
+import { userConstants, authConstants } from '../_constants'
 
 // userReducer
 export function userReducer(state = new Map(), action) {
   switch (action.type) {
-    case userConstants.LOGIN_REQUEST:
+    case userConstants.GET_USER_REQUEST:
       return state.set('isPending', true)
-    case userConstants.LOGIN_FAILURE:
+    case userConstants.GET_USER_FAILURE:
       return state.merge({
-        'error': action.error,
-        'isPending': false
+        'isPending': false,
+        'error': action.error
       })
-    case userConstants.LOGIN_SUCCESS:
+    case userConstants.GET_USER_SUCCESS:
       return state.merge({
-        'token': action.user,
+        'username': action.user.username,
+        'createDate': action.user.creat_date,
+        'email': action.user.email,
         'isPending': false,
         'error': null
       })
-    case userConstants.LOGOUT:
+    case authConstants.AUTH_LOGOUT:
       return new Map()
     default:
       return state

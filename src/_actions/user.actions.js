@@ -2,63 +2,36 @@ import { userService } from '../_services'
 import { userConstants } from '../_constants'
 // import cookies from 'js-cookie'
 
-// login
-function login(username, password) {
+function getUser() {
   const request = () => ({
-    type: userConstants.LOGIN_REQUEST
+    type: userConstants.GET_USER_REQUEST
   })
-
   const success = (user) => ({
-    type: userConstants.LOGIN_SUCCESS,
+    type: userConstants.GET_USER_SUCCESS,
     user
   })
-
   const failure = (error) => ({
-    type: userConstants.LOGIN_FAILURE,
+    type: userConstants.GET_USER_FAILURE,
     error
-  })
-
-  return async dispatch => {
-    try {
-      dispatch(request())
-
-      await userService.login(username, password)
-        .then(
-          res => {
-            if (res.data.code === -200 && res.data.data === '') {
-              return dispatch(failure(res.data.message))
-            }
-
-            return dispatch(success(res.data.data))
-          }
-        )
-        .catch(
-          error => {
-            return dispatch(failure(error))
-          }
-        )
-    } catch (error) {
-      dispatch(failure(error))
-    }
-  }
-}
-
-// logout
-function logout() {
-  const logout = () => ({
-    type: userConstants.LOGOUT
   })
 
   return async (dispatch) => {
     try {
-      await userService.logout()
-        .then(() => {
-          dispatch(logout())
-        })
+      dispatch(request())
+      await userService.getUser()
+        .then(
+          (res) => {
+            console.log(res.data)
+            if (res.data.code === -400 && res.data.data === '') {
+              return dispatch(failure(res.data.message))
+            }
+            return dispatch(success(res.data.data))
+          }
+        )
     } catch (error) {
-      console.log('登出失败')
+      console.log('get user errors')
     }
   }
 }
 
-export const userActions = { login, logout }
+export const userActions = { getUser }
