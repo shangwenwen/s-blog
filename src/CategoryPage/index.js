@@ -25,7 +25,6 @@ class CategoryContainer extends Component {
   }
 
   render() {
-    // console.log(this.props.getList())
     return (
       <div>
         <CategoryNavComponent />
