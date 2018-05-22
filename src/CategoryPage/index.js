@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
+// actions
+import {listActions} from '../_actions'
+
 // components & containers
 import { CategoryNavComponent } from '../_components'
 
@@ -10,7 +13,19 @@ class CategoryContainer extends Component {
   //   super(props)
   // }
 
+  componentDidMount() {
+    const {
+        getList,
+        location: { pathname },
+        match: {
+            params: { id, key, by }
+        }
+    } = this.props
+    getList({ id,key,by,pathname, page: 1 })
+  }
+
   render() {
+    // console.log(this.props.getList())
     return (
       <div>
         <CategoryNavComponent />
@@ -25,4 +40,16 @@ class CategoryContainer extends Component {
   }
 }
 
-export default connect(null, null)(CategoryContainer)
+// redux connect
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth.toJS()
+  }
+}
+
+const mapDispatchToProps = {
+  getList: listActions.getList
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryContainer)
