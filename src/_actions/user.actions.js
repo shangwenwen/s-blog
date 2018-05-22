@@ -21,7 +21,6 @@ function getUser() {
       await userService.getUser()
         .then(
           (res) => {
-            console.log(res.data)
             if (res.data.code === -400 && res.data.data === '') {
               return dispatch(failure(res.data.message))
             }
