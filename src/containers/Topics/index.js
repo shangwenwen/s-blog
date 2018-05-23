@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 // actions
-import {topicsActions} from '../../redux/topics/actions'
+import { topicsActions } from '../../redux/topics'
 
 // components & containers
 import { CategoryNavComponent } from '../../components'
@@ -14,7 +14,7 @@ class TopicsContainer extends Component {
   // }
 
   componentDidMount() {
-    const { getTopics, location,match} = this.props
+    const { getTopics, location, match } = this.props
     // console.log(match)
     // getTopics({ key, id, by })
   }
@@ -44,6 +44,5 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   getTopics: topicsActions.getTopics
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(TopicsContainer)

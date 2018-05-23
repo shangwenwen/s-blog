@@ -6,8 +6,8 @@ import cookies from 'js-cookie'
 import Loadable from 'react-loadable'
 
 // actions
-import { authActions } from '../../redux/auth/actions'
-import { userActions } from '../../redux/user/actions'
+import { authActions } from '../../redux/auth'
+import { userActions } from '../../redux/user'
 
 // components & containers 异步加载组件
 import { HeaderComponent, PrivateRoute, LoadingComponent } from '../../components'
