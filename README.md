@@ -1,1 +1,1 @@
-# webpack-boilerplate 0524
+# webpack-boilerplate
