@@ -1,5 +1,5 @@
-import { authService } from '../_services'
-import { authConstants } from '../_constants'
+import { authService } from './service'
+import { authConstants } from './constants'
 // import cookies from 'js-cookie'
 
 // login

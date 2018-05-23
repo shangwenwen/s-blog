@@ -3,25 +3,20 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 // actions
-import {listActions} from '../_actions'
+import {topicsActions} from '../../redux/topics/actions'
 
 // components & containers
-import { CategoryNavComponent } from '../_components'
+import { CategoryNavComponent } from '../../components'
 
-class CategoryContainer extends Component {
+class TopicsContainer extends Component {
   // constructor(props) {
   //   super(props)
   // }
 
   componentDidMount() {
-    const {
-        getList,
-        location: { pathname },
-        match: {
-            params: { id, key, by }
-        }
-    } = this.props
-    getList({ id,key,by,pathname, page: 1 })
+    const { getTopics, location,match} = this.props
+    // console.log(match)
+    // getTopics({ key, id, by })
   }
 
   render() {
@@ -47,8 +42,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-  getList: listActions.getList
+  getTopics: topicsActions.getTopics
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(TopicsContainer)

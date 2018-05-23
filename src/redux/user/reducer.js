@@ -1,5 +1,6 @@
 import { Map } from 'immutable'
-import { userConstants, authConstants } from '../_constants'
+import { userConstants } from './constants'
+import { authConstants } from '../auth/constants'
 
 // userReducer
 export function userReducer(state = new Map(), action) {

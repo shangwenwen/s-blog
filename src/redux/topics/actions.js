@@ -1,23 +1,23 @@
-import { listService } from '../_services'
-import { listConstants } from '../_constants'
+import { TopicsService } from './service'
+import { TopicsConstants } from './constants'
 
-function getList(params) {
+function getTopics(params) {
   const request = () => ({
-    type: listConstants.GET_LIST_REQUEST
+    type: listConstants.GET_TOPICS_REQUEST
   })
   const success = (list) => ({
-    type: listConstants.GET_LIST_SUCCESS,
+    type: listConstants.GET_TOPICS_SUCCESS,
     list
   })
   const failure = (error) => ({
-    type: listConstants.GET_LIST_FAILURE,
+    type: listConstants.GET_TOPICS_FAILURE,
     error
   })
 
   return async (dispatch) => {
     try {
       dispatch(request())
-      await listService.getList(params)
+      await listService.getTopics(params)
         .then(
           (res) => {
             console.log(res)
@@ -33,4 +33,4 @@ function getList(params) {
   }
 }
 
-export const listActions = { getList }
+export const topicsActions = { getTopics }

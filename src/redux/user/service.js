@@ -1,4 +1,4 @@
-import { Api } from '../_helpers'
+import { Api } from '../../helpers'
 
 const getUser = () => {
   return Api.get('/frontend/user/account')

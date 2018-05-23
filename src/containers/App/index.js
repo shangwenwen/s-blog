@@ -3,25 +3,23 @@ import { connect } from 'react-redux'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import { hot } from 'react-hot-loader'
 import cookies from 'js-cookie'
+import Loadable from 'react-loadable'
 
 // actions
-import { authActions, userActions } from '../_actions'
+import { authActions } from '../../redux/auth/actions'
+import { userActions } from '../../redux/user/actions'
 
-// components & containers
-import CategoryContainer from '../CategoryPage'
-import PostContainer from '../PostPage'
-import AboutContainer from '../AboutPage'
-import AccountContainer from '../AccountPage'
-import { HeaderComponent, PrivateRoute } from '../_components'
+// components & containers 异步加载组件
+import { HeaderComponent, PrivateRoute, LoadingComponent } from '../../components'
+const CategoryContainer = Loadable({ loader: () => import('../Topics'), loading: LoadingComponent })
+const PostContainer = Loadable({ loader: () => import('../Post'), loading: LoadingComponent })
+const AccountContainer = Loadable({ loader: () => import('../Account'), loading: LoadingComponent })
+const AboutContainer = Loadable({ loader: () => import('../Me'), loading: LoadingComponent })
 
 // css style
-import '../_assets/style.css'
+import '../../assets/style.css'
 
 class AppContainer extends Component {
-  // constructor(props) {
-  //   super(props)
-  // }
-
   componentDidMount() {
     let token = cookies.get('user')
 

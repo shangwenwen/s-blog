@@ -1,6 +1,6 @@
 {
   "presets": ["env", "react"],
-  "plugins": ["react-hot-loader/babel", "transform-class-properties", [
+  "plugins": ["syntax-dynamic-import", "react-hot-loader/babel", "transform-class-properties", [
     "transform-runtime",
     {
       "helpers": false,
