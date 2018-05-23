@@ -3,21 +3,21 @@ import { TopicsConstants } from './constants'
 
 function getTopics(params) {
   const request = () => ({
-    type: listConstants.GET_TOPICS_REQUEST
+    type: TopicsConstants.GET_TOPICS_REQUEST
   })
   const success = (list) => ({
-    type: listConstants.GET_TOPICS_SUCCESS,
+    type: TopicsConstants.GET_TOPICS_SUCCESS,
     list
   })
   const failure = (error) => ({
-    type: listConstants.GET_TOPICS_FAILURE,
+    type: TopicsConstants.GET_TOPICS_FAILURE,
     error
   })
 
   return async (dispatch) => {
     try {
       dispatch(request())
-      await listService.getTopics(params)
+      await TopicsService.getTopics(params)
         .then(
           (res) => {
             console.log(res)

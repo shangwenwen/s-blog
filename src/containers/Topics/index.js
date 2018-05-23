@@ -16,7 +16,7 @@ class TopicsContainer extends Component {
   componentDidMount() {
     const { getTopics, location, match } = this.props
     // console.log(match)
-    // getTopics({ key, id, by })
+    getTopics({ page:1, limit:5, category_name: 'js' })
   }
 
   render() {
