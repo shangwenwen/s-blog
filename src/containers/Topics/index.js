@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 
 // actions
 import { topicsActions } from '../../redux/topics'
 
 // components & containers
-import { CategoryNavComponent } from '../../components'
+import { CategoryNavComponent, TopicComponent } from '../../components'
 
 class TopicsContainer extends Component {
   // constructor(props) {
@@ -14,21 +13,22 @@ class TopicsContainer extends Component {
   // }
 
   componentDidMount() {
-    const { getTopics, location, match } = this.props
-    // console.log(match)
-    getTopics({ page:1, limit:5, category_name: 'js' })
+    const { getTopics } = this.props
+    getTopics({ page: 1 })
   }
 
   render() {
+    const { topics } = this.props
     return (
       <div>
         <CategoryNavComponent />
-        <div>
-          <div><Link to="/post/46457122">Category</Link></div>
-          <div><Link to="/post/46457122">Category</Link></div>
-          <div><Link to="/post/46457122">Category</Link></div>
-          <div><Link to="/post/46457122">Category</Link></div>
-        </div>
+        {
+          topics.lists.map((item) => {
+            return (
+              <TopicComponent item={item} key={item._id} index={item.id} />
+            )
+          })
+        }
       </div>
     )
   }
@@ -37,7 +37,7 @@ class TopicsContainer extends Component {
 // redux connect
 const mapStateToProps = (state) => {
   return {
-    auth: state.auth.toJS()
+    topics: state.topics.toJS()
   }
 }
 

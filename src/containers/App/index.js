@@ -10,11 +10,11 @@ import { authActions } from '../../redux/auth'
 import { userActions } from '../../redux/user'
 
 // components & containers 异步加载组件
-import { HeaderComponent, PrivateRoute, LoadingComponent } from '../../components'
-const CategoryContainer = Loadable({ loader: () => import('../Topics'), loading: LoadingComponent })
-const PostContainer = Loadable({ loader: () => import('../Post'), loading: LoadingComponent })
-const AccountContainer = Loadable({ loader: () => import('../Account'), loading: LoadingComponent })
-const AboutContainer = Loadable({ loader: () => import('../Me'), loading: LoadingComponent })
+import { HeaderComponent, LoadingComponent, PrivateRoute } from '../../components'
+const AsyncCategoryContainer = Loadable({ loader: () => import('../Topics'), loading: LoadingComponent })
+const AsyncPostContainer = Loadable({ loader: () => import('../Post'), loading: LoadingComponent })
+const AsyncAccountContainer = Loadable({ loader: () => import('../Account'), loading: LoadingComponent })
+const AsyncAboutContainer = Loadable({ loader: () => import('../Me'), loading: LoadingComponent })
 
 // css style
 import '../../assets/style.css'
@@ -34,11 +34,11 @@ class AppContainer extends Component {
         <HeaderComponent username={this.props.user.username} onLogin={this.props.login} onGetUser={this.props.getUser} onLogout={this.props.logout} haslogin={this.props.auth.token} history={this.props.history} />
         <div className="container">
           <Switch>
-            <Route exact path="/" component={CategoryContainer} />
-            <Route name="category" path="/category/:category" component={CategoryContainer} />
-            <Route name="post" path="/post/:id" component={PostContainer} />
-            <Route name="about" path="/about" component={AboutContainer} />
-            <PrivateRoute name="account" path="/account" component={AccountContainer} />
+            <Route exact path="/" component={AsyncCategoryContainer} />
+            <Route name="category" path="/category/:category" component={AsyncCategoryContainer} />
+            <Route name="post" path="/post/:id" component={AsyncPostContainer} />
+            <Route name="about" path="/about" component={AsyncAboutContainer} />
+            <PrivateRoute name="account" path="/account" component={AsyncAccountContainer} />
           </Switch>
         </div>
 

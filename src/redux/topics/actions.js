@@ -1,16 +1,18 @@
 import { TopicsService } from './service'
-import { TopicsConstants } from './constants'
+import { topicsConstants } from './constants'
 
 function getTopics(params) {
   const request = () => ({
-    type: TopicsConstants.GET_TOPICS_REQUEST
+    type: topicsConstants.GET_TOPICS_REQUEST
   })
-  const success = (list) => ({
-    type: TopicsConstants.GET_TOPICS_SUCCESS,
-    list
+  const success = (page, list, hasNext) => ({
+    type: topicsConstants.GET_TOPICS_SUCCESS,
+    page,
+    list,
+    hasNext
   })
   const failure = (error) => ({
-    type: TopicsConstants.GET_TOPICS_FAILURE,
+    type: topicsConstants.GET_TOPICS_FAILURE,
     error
   })
 
@@ -20,15 +22,14 @@ function getTopics(params) {
       await TopicsService.getTopics(params)
         .then(
           (res) => {
-            console.log(res)
-            // if (res.data.code === -400 && res.data.data === '') {
-            //   return dispatch(failure(res.data.message))
-            // }
-            // return dispatch(success(res.data.data))
+            if (res.data.code === -200 && res.data.data === '') {
+              return dispatch(failure(res.data.message))
+            }
+            return dispatch(success(params.page, res.data.data.list, res.data.data.hasNext))
           }
         )
     } catch (error) {
-      console.log(error)
+      dispatch(failure(error))
     }
   }
 }
