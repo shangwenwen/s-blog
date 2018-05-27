@@ -14,7 +14,7 @@ class TopicsContainer extends Component {
 
   componentDidMount() {
     const { getTopics } = this.props
-    getTopics({ page: 1 })
+    getTopics({ page: 1, limit: 5 })
   }
 
   render() {

@@ -11,6 +11,7 @@ class PostContainer extends Component {
   }
 
   render() {
+    console.log(this.props.post)
     return (
       <div>postpage</div>
     )
