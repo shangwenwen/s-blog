@@ -1,14 +1,15 @@
 import { postConstants } from './constants'
 import { postService } from './service'
 
-function getPost(id) {
+function getPost(params) {
   const request = () => ({
     type: postConstants.GET_POST_REQUEST
   })
 
-  const success = (data) => ({
+  const success = (data, pathname) => ({
     type: postConstants.GET_POST_SUCCESS,
-    data
+    data,
+    pathname
   })
 
   const failure = (error) => ({
@@ -18,12 +19,12 @@ function getPost(id) {
 
   return async (dispatch) => {
     try {
+      // console.log(params)
       dispatch(request())
-      await postService.getPost(id)
+      await postService.getPost(params.id)
         .then(
           (res) => {
-            console.log(res)
-            // dispatch(success(res.data))
+            return dispatch(success(res.data.data, params.pathname))
           }
         )
     } catch (error) {
