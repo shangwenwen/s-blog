@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 
 // actions
 import { postActions } from '../../redux/post'
 
-class PostContainer extends Component {
+class PostContainer extends React.Component {
   state = {
     users: ''
   }
