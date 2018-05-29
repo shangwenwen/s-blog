@@ -10,7 +10,7 @@ class PostContainer extends Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if(nextProps.post.pathname !== prevState.pathname) {
+    if(nextProps.post.pathname !== prevState.users) {
       return {
         users: nextProps.post.pathname
       }
