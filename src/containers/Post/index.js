@@ -6,46 +6,57 @@ import { postActions } from '../../redux/post'
 
 class PostContainer extends Component {
   state = {
-    pathname:'ss'
+    users: ''
   }
 
-  // componentDidMount() {
-  //   if(this.props.post.pathname === '' || this.props.post.pathname !== this.props.location.pathname) {
-  //     this._handleFetchPost(this.props.match.params.id, this.props.location.pathname)
-  //   }
-  // }
-
   static getDerivedStateFromProps(nextProps, prevState) {
-    // console.log(nextProps.post.pathname)
-    // console.log(prevState.pathname)
-    if (nextProps.post.pathname !== prevState.pathname) {
+    if(nextProps.post.pathname !== prevState.pathname) {
       return {
-        pathname: nextProps.post.pathname,
+        users: nextProps.post.pathname
       }
     }
+
     return null
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (!prevState.pathname && this.props.post.pathname) {
-      this._handleFetchPost(this.props.match.params.id, this.props.location.pathname)
+  componentDidMount() {
+    if (this.props.post.pathname !== this.props.location.pathname) {
+      this.handleFetchPost()
     }
   }
 
-  _handleFetchPost(id, pathname) {
-    const { post, getPost } = this.props
-    getPost({id, pathname})
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.location.pathname !== this.props.location.pathname) {
+      this.handleFetchPost()
+    }
+  }
+
+  handleFetchPost() {
+    const { getPost, match: { params: { id }}, location: { pathname }} = this.props
+    getPost({ id, pathname })
   }
 
   createMarkup() {
-    const { post } = this.props
-    return {__html: post.data.html}
+    const { post: { data: { html }}} = this.props
+    return {
+      __html: html
+    }
   }
 
   render() {
-    return (
-      <div dangerouslySetInnerHTML={this.createMarkup()}></div>
-    )
+    if(this.props.post.isPending) {
+      return(
+        <div>loading..........</div>
+      )
+    } else {
+      return (
+        <div>
+          <div dangerouslySetInnerHTML={this.createMarkup()}></div>
+          <div>{this.props.post.data.visit}</div>
+          <div>{this.state.users}</div>
+        </div>
+      )
+    }
   }
 }
 
