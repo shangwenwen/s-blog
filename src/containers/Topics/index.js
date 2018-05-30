@@ -8,13 +8,36 @@ import { topicsActions } from '../../redux/topics'
 import { CategoryNavComponent, TopicComponent } from '../../components'
 
 class TopicsContainer extends Component {
-  // constructor(props) {
-  //   super(props)
-  // }
+  constructor(props) {
+    super(props)
+    this.handleLoadMore = this.handleLoadMore.bind(this)
+  }
 
   componentDidMount() {
-    const { getTopics } = this.props
-    getTopics({ page: 1, limit: 5 })
+    if (this.props.topics.category !== this.props.match.params.category) {
+      this.loadAsyncTopics()
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.match.params.category !== this.props.match.params.category) {
+      this.loadAsyncTopics()
+    }
+  }
+
+  handleLoadMore() {
+    const { page } = this.props.topics
+    this.loadAsyncTopics(page + 1)
+  }
+
+  loadAsyncTopics(page = 1) {
+    const {
+      getTopics,
+      match: {
+        params: { id, key, by, category }
+      }
+    } = this.props
+    getTopics({ id, key, by, limit:1, page, category })
   }
 
   render() {
@@ -29,6 +52,7 @@ class TopicsContainer extends Component {
             )
           })
         }
+        <div onClick={this.handleLoadMore}>加载更多</div>
       </div>
     )
   }

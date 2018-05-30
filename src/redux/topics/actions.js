@@ -5,12 +5,15 @@ function getTopics(params) {
   const request = () => ({
     type: topicsConstants.GET_TOPICS_REQUEST
   })
-  const success = (page, list, hasNext) => ({
+
+  const success = (list, hasNext) => ({
     type: topicsConstants.GET_TOPICS_SUCCESS,
-    page,
+    page: params.page,
     list,
-    hasNext
+    hasNext,
+    category: params.category || 'all'
   })
+
   const failure = (error) => ({
     type: topicsConstants.GET_TOPICS_FAILURE,
     error
@@ -25,7 +28,7 @@ function getTopics(params) {
             if (res.data.code === -200 && res.data.data === '') {
               return dispatch(failure(res.data.message))
             }
-            return dispatch(success(params.page, res.data.data.list, res.data.data.hasNext))
+            return dispatch(success(res.data.data.list, res.data.data.hasNext))
           }
         )
     } catch (error) {

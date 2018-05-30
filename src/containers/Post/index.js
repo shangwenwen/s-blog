@@ -5,14 +5,12 @@ import { connect } from 'react-redux'
 import { postActions } from '../../redux/post'
 
 class PostContainer extends React.Component {
-  state = {
-    users: ''
-  }
+  state = {}
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if(nextProps.post.pathname !== prevState.users) {
+    if (nextProps.post.pathname !== prevState.pathname) {
       return {
-        users: nextProps.post.pathname
+        pathname: nextProps.post.pathname
       }
     }
 
@@ -26,7 +24,7 @@ class PostContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if(prevProps.location.pathname !== this.props.location.pathname) {
+    if (prevProps.location.pathname !== this.props.location.pathname) {
       this.handleFetchPost()
     }
   }
@@ -44,8 +42,8 @@ class PostContainer extends React.Component {
   }
 
   render() {
-    if(this.props.post.isPending) {
-      return(
+    if (this.props.post.isPending) {
+      return (
         <div>loading..........</div>
       )
     } else {
@@ -53,7 +51,7 @@ class PostContainer extends React.Component {
         <div>
           <div dangerouslySetInnerHTML={this.createMarkup()}></div>
           <div>{this.props.post.data.visit}</div>
-          <div>{this.state.users}</div>
+          <div>{this.state.pathname}</div>
         </div>
       )
     }
