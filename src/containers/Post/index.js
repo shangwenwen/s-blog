@@ -5,17 +5,17 @@ import { connect } from 'react-redux'
 import { postActions } from '../../redux/post'
 
 class PostContainer extends React.Component {
-  state = {}
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.post.pathname !== prevState.pathname) {
-      return {
-        pathname: nextProps.post.pathname
-      }
-    }
-
-    return null
-  }
+  // state = {}
+  //
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   if (nextProps.post.pathname !== prevState.pathname) {
+  //     return {
+  //       pathname: nextProps.post.pathname
+  //     }
+  //   }
+  //
+  //   return null
+  // }
 
   // 初始化页面渲染数据
   componentDidMount() {
@@ -53,7 +53,6 @@ class PostContainer extends React.Component {
         <div>
           <div dangerouslySetInnerHTML={this.createMarkup()}></div>
           <div>{this.props.post.data.visit}</div>
-          <div>{this.state.pathname}</div>
         </div>
       )
     }
