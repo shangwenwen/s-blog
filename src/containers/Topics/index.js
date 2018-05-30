@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 
 // actions
@@ -7,20 +7,18 @@ import { topicsActions } from '../../redux/topics'
 // components & containers
 import { CategoryNavComponent, TopicComponent } from '../../components'
 
-class TopicsContainer extends Component {
+class TopicsContainer extends React.Component {
   constructor(props) {
     super(props)
     this.handleLoadMore = this.handleLoadMore.bind(this)
   }
 
   componentDidMount() {
-    if (this.props.topics.category !== this.props.match.params.category) {
-      this.loadAsyncTopics()
-    }
+    this.loadAsyncTopics()
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.match.params.category !== this.props.match.params.category) {
+    if (prevProps.location.pathname !== this.props.location.pathname) {
       this.loadAsyncTopics()
     }
   }
@@ -33,26 +31,49 @@ class TopicsContainer extends Component {
   loadAsyncTopics(page = 1) {
     const {
       getTopics,
+      location: { pathname },
       match: {
-        params: { id, key, by, category }
+        params: { id, key, by }
       }
     } = this.props
-    getTopics({ id, key, by, limit:1, page, category })
+    getTopics({ id, key, by, limit: 5, page, pathname })
   }
 
   render() {
     const { topics } = this.props
+    let html = null
+
+    if (!topics.pathname) {
+      html = (
+        <div>加载中，请稍等....</div>
+      )
+    } else if (topics.lists.length > 0) {
+      html = (
+        <div>
+          {
+            topics.lists.map((item) => {
+              return (
+                <TopicComponent item={item} key={item._id} index={item.id} />
+              )
+            })
+          }
+          {
+            topics.hasNext
+              ? <div onClick={this.handleLoadMore}>加载更多</div>
+              : <div>全部加载完成...</div>
+          }
+        </div>
+      )
+    } else {
+      html = (
+        <div>当前分类没有文章...</div>
+      )
+    }
+
     return (
       <div>
         <CategoryNavComponent />
-        {
-          topics.lists.map((item) => {
-            return (
-              <TopicComponent item={item} key={item._id} index={item.id} />
-            )
-          })
-        }
-        <div onClick={this.handleLoadMore}>加载更多</div>
+        {html}
       </div>
     )
   }

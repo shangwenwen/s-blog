@@ -35,7 +35,7 @@ class AppContainer extends Component {
         <div className="container">
           <Switch>
             <Route exact path="/" component={AsyncCategoryContainer} />
-            <Route name="category" path="/category/:category" component={AsyncCategoryContainer} />
+            <Route name="category" path="/category/:id" component={AsyncCategoryContainer} />
             <Route name="post" path="/post/:id" component={AsyncPostContainer} />
             <Route name="about" path="/about" component={AsyncAboutContainer} />
             <PrivateRoute name="account" path="/account" component={AsyncAccountContainer} />

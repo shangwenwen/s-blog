@@ -11,7 +11,7 @@ function getTopics(params) {
     page: params.page,
     list,
     hasNext,
-    category: params.category || 'all'
+    pathname: params.pathname || 'all'
   })
 
   const failure = (error) => ({

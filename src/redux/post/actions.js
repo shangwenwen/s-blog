@@ -2,6 +2,7 @@ import { postConstants } from './constants'
 import { postService } from './service'
 
 function getPost(params) {
+  // action creates
   const request = () => ({
     type: postConstants.GET_POST_REQUEST
   })
@@ -19,7 +20,6 @@ function getPost(params) {
 
   return async (dispatch) => {
     try {
-      // console.log(params)
       dispatch(request())
       await postService.getPost(params.id)
         .then(
@@ -28,7 +28,7 @@ function getPost(params) {
           }
         )
     } catch (error) {
-      dispatch(failure(error))
+      dispatch(failure('error:' + error))
     }
   }
 }

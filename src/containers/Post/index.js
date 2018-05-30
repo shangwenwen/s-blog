@@ -17,19 +17,21 @@ class PostContainer extends React.Component {
     return null
   }
 
+  // 初始化页面渲染数据
   componentDidMount() {
     if (this.props.post.pathname !== this.props.location.pathname) {
-      this.handleFetchPost()
+      this.loadAsyncPost()
     }
   }
 
+  // 页面更新加载数据
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.location.pathname !== this.props.location.pathname) {
-      this.handleFetchPost()
+      this.loadAsyncPost()
     }
   }
 
-  handleFetchPost() {
+  loadAsyncPost() {
     const { getPost, match: { params: { id }}, location: { pathname }} = this.props
     getPost({ id, pathname })
   }

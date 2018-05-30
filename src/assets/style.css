@@ -21,6 +21,8 @@ body {
 
 /*nesting*/
 .main {
+  width: 990px;
+  margin: 0 auto;
   /* display    : flex; */
   /* background : url(01.jpg) no-repeat; */
   /*background: #000;*/

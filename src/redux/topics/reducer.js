@@ -6,7 +6,7 @@ const initStates = fromJS({
   lists: [],
   hasNext: 0,
   page: 1,
-  category: null,
+  pathname: null,
   isPending: false,
   error: null
 })
@@ -21,12 +21,12 @@ export function topicsReducer(state = initStates, action) {
         'isPending': false
       })
     case topicsConstants.GET_TOPICS_SUCCESS: {
-      const { page, list, hasNext, category } = action
+      const { page, list, hasNext, pathname } = action
       const lists = (page === 1) ? [].concat(list) : state.toJS().lists.concat(list)
       return state.merge({
         'lists': lists,
         'page': page,
-        'category': category,
+        'pathname': pathname,
         'hasNext': hasNext,
         'isPending': false,
         'error': null
