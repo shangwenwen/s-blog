@@ -2,6 +2,7 @@ import { TopicsService } from './service'
 import { topicsConstants } from './constants'
 
 function getTopics(params) {
+  // action creates
   const request = () => ({
     type: topicsConstants.GET_TOPICS_REQUEST
   })
@@ -11,7 +12,7 @@ function getTopics(params) {
     page: params.page,
     list,
     hasNext,
-    pathname: params.pathname || 'all'
+    pathname: params.pathname
   })
 
   const failure = (error) => ({

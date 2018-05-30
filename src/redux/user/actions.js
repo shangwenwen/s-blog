@@ -3,13 +3,16 @@ import { userConstants } from './constants'
 // import cookies from 'js-cookie'
 
 function getUser() {
+  // action creates
   const request = () => ({
     type: userConstants.GET_USER_REQUEST
   })
+
   const success = (user) => ({
     type: userConstants.GET_USER_SUCCESS,
     user
   })
+  
   const failure = (error) => ({
     type: userConstants.GET_USER_FAILURE,
     error

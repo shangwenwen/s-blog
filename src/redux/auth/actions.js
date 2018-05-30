@@ -2,8 +2,8 @@ import { authService } from './service'
 import { authConstants } from './constants'
 // import cookies from 'js-cookie'
 
-// login
 function login(username, password) {
+  // action creates
   const request = () => ({
     type: authConstants.AUTH_LOGIN_REQUEST
   })
@@ -43,7 +43,6 @@ function login(username, password) {
   }
 }
 
-// logout
 function logout() {
   const logout = () => ({
     type: authConstants.AUTH_LOGOUT
