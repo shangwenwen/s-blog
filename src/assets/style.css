@@ -2,11 +2,17 @@ $main-color: red;
 $padding-left: 1rem;
 
 @custom-media --viewport-medium screen and (width >= 500px) and (width <= 1200px);
-
+html {
+  width: 100px;
+  height:  100px;
+}
 body {
   font-size: 13px;
   padding: 0;
-  margin: 0
+  margin: 0;
+  height: 100px;
+  display: block;
+  overflow-y: auto;
 }
 
 .backgrounds {
@@ -27,7 +33,7 @@ body {
   /* background : url(01.jpg) no-repeat; */
   /*background: #000;*/
   /* padding-left: calc($padding-left / 3); */
-  padding: 10px;
+  /* padding: 10px; */
 
   &:hover {
     /* padding : 10px; */
@@ -119,4 +125,8 @@ body {
         url(01.jpg) 2x,
         url(01.jpg) 600dpi
       );
+}
+
+.list {
+  padding: 50px 0;
 }

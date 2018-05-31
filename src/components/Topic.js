@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 
 export const TopicComponent = (props) => {
   return (
-    <div>
-      <Link to={'/post/' + props.item._id} target="_blank">{props.item.title}</Link>
+    <div className="list">
+      <Link to={'/post/' + props.item._id}>{props.item.title}</Link>
        /
       <Link to={'/category/' + props.item.category}>{props.item.category_name}</Link>
     </div>

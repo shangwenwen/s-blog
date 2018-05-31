@@ -8,13 +8,21 @@ import { topicsActions } from '../../redux/topics'
 import { CategoryNavComponent, TopicComponent } from '../../components'
 
 class TopicsContainer extends React.Component {
+
   constructor(props) {
     super(props)
     this.handleLoadMore = this.handleLoadMore.bind(this)
+    this.handleScroll = this.handleScroll.bind(this)
   }
 
   componentDidMount() {
-    this.loadAsyncTopics()
+    if (this.props.topics.pathname !== this.props.location.pathname) {
+      this.loadAsyncTopics()
+    }
+
+    window.scrollTo(0, this.props.topics.scrollTop)
+
+    window.addEventListener('scroll', this.handleScroll, false)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -23,11 +31,23 @@ class TopicsContainer extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll, false)
+  }
+
+  // 加载更多
   handleLoadMore() {
     const { page } = this.props.topics
     this.loadAsyncTopics(page + 1)
   }
 
+  // 本地存储滚动条顶部距离
+  handleScroll() {
+    const scrollTop = this.scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+    this.props.saveScrollTop(scrollTop)
+  }
+
+  // 异步加载列表
   loadAsyncTopics(page = 1) {
     const {
       getTopics,
@@ -87,7 +107,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-  getTopics: topicsActions.getTopics
+  getTopics: topicsActions.getTopics,
+  saveScrollTop: topicsActions.saveScrollTop
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TopicsContainer)

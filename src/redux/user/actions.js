@@ -12,7 +12,7 @@ function getUser() {
     type: userConstants.GET_USER_SUCCESS,
     user
   })
-  
+
   const failure = (error) => ({
     type: userConstants.GET_USER_FAILURE,
     error

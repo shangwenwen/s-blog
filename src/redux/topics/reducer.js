@@ -8,6 +8,7 @@ const initStates = fromJS({
   page: 1,
   pathname: null,
   isPending: false,
+  scrollTop: 0,
   error: null
 })
 
@@ -19,6 +20,10 @@ export function topicsReducer(state = initStates, action) {
       return state.merge({
         'error': action.error,
         'isPending': false
+      })
+    case 'SAVE_SCROLL_TOP':
+      return state.merge({
+        'scrollTop': action.top,
       })
     case topicsConstants.GET_TOPICS_SUCCESS: {
       const { page, list, hasNext, pathname } = action

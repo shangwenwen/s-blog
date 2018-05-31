@@ -38,4 +38,9 @@ function getTopics(params) {
   }
 }
 
-export const topicsActions = { getTopics }
+const saveScrollTop = (top) => ({
+  type: 'SAVE_SCROLL_TOP',
+  top
+})
+
+export const topicsActions = { getTopics, saveScrollTop }
