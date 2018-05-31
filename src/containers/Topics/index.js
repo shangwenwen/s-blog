@@ -8,7 +8,6 @@ import { topicsActions } from '../../redux/topics'
 import { CategoryNavComponent, TopicComponent } from '../../components'
 
 class TopicsContainer extends React.Component {
-
   constructor(props) {
     super(props)
     this.handleLoadMore = this.handleLoadMore.bind(this)
@@ -16,11 +15,12 @@ class TopicsContainer extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.topics.pathname !== this.props.location.pathname) {
+    const {topics, location} = this.props
+    if (topics.pathname !== location.pathname) {
       this.loadAsyncTopics()
     }
 
-    window.scrollTo(0, this.props.topics.scrollTop)
+    window.scrollTo(0, topics.scrollTop)
 
     window.addEventListener('scroll', this.handleScroll, false)
   }
@@ -44,7 +44,8 @@ class TopicsContainer extends React.Component {
   // 本地存储滚动条顶部距离
   handleScroll() {
     const scrollTop = this.scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
-    this.props.saveScrollTop(scrollTop)
+    const { saveScrollTop } = this.props
+    saveScrollTop(scrollTop)
   }
 
   // 异步加载列表
