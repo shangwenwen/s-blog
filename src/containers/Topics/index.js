@@ -20,7 +20,8 @@ class TopicsContainer extends React.Component {
       this.loadAsyncTopics()
     }
 
-    window.scrollTo(0, topics.scrollTop)
+    const scrollTop = topics.scrollTop || 0
+    window.scrollTo(0, scrollTop)
 
     window.addEventListener('scroll', this.handleScroll, false)
   }
