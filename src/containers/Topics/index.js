@@ -45,8 +45,7 @@ class TopicsContainer extends React.Component {
   // 本地存储滚动条顶部距离
   handleScroll() {
     const scrollTop = this.scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
-    const { saveScrollTop } = this.props
-    saveScrollTop(scrollTop)
+    this.props.getScrollTop(scrollTop)
   }
 
   // 异步加载列表
@@ -110,7 +109,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   getTopics: topicsActions.getTopics,
-  saveScrollTop: topicsActions.saveScrollTop
+  getScrollTop: topicsActions.getScrollTop
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TopicsContainer)

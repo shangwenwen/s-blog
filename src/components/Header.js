@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { NavLink, Link } from 'react-router-dom'
 
-export class HeaderComponent extends Component {
+export class HeaderComponent extends React.Component {
   constructor(props) {
     super(props)
     this.handleLogout = this.handleLogout.bind(this)
