@@ -19,17 +19,15 @@ function getPost(params) {
   })
 
   return async (dispatch) => {
-    try {
-      dispatch(request())
-      await postService.getPost(params.id)
-        .then(
-          (res) => {
-            return dispatch(success(res.data.data, params.pathname))
-          }
-        )
-    } catch (error) {
-      dispatch(failure('error:' + error))
-    }
+    dispatch(request())
+    const { data } = await postService.getPost(params.id)
+
+
+    // .then(
+    //   (res) => {
+    //     return dispatch(success(res.data.data, params.pathname))
+    //   }
+    // )
   }
 }
 

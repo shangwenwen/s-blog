@@ -2,10 +2,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 // actions
-import { postActions } from '../../redux/post'
+import { postActions, postService } from '../../redux/post'
 
 class PostContainer extends React.Component {
-  // state = {}
+  state = {
+    externalData: null
+  }
   //
   // static getDerivedStateFromProps(nextProps, prevState) {
   //   if (nextProps.post.pathname !== prevState.pathname) {
@@ -31,9 +33,21 @@ class PostContainer extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    if (this._asyncRequest) {
+
+      console.log(typeof this._asyncRequest)
+    }
+  }
+
   loadAsyncPost() {
     const { getPost, match: { params: { id }}, location: { pathname }} = this.props
-    getPost({ id, pathname })
+    this._asyncRequest = postService.getPost(id).then(
+        (externalData) => {
+          // this._asyncRequest = null
+          this.setState({externalData})
+        }
+    )
   }
 
   createMarkup() {
@@ -44,7 +58,7 @@ class PostContainer extends React.Component {
   }
 
   render() {
-    if (this.props.post.isPending) {
+    if (this.state.externalData === null) {
       return (
         <div>loading..........</div>
       )
