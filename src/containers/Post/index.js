@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-// actions
-import { postActions } from '../../redux/post'
+// actions & service
+import { postActions, postService } from '../../redux/post'
 
 class PostContainer extends React.Component {
   // state = {}
@@ -31,8 +31,23 @@ class PostContainer extends React.Component {
     }
   }
 
-  loadAsyncPost() {
+  componentWillUnMount() {
+    if(this._requestData) {
+      this._requestData = null
+    }
+  }
+
+  async _loadPost() {
     const { getPost, match: { params: { id }}, location: { pathname }} = this.props
+    dispatch()
+    this._requestData = await PostContainer.getPost(id)
+      .then(
+        (res) => {
+          this._requestData = null
+          console.log(res)
+        }
+      )
+
     getPost({ id, pathname })
   }
 

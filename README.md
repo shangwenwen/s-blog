@@ -1,1 +1,1 @@
-# webpack-boilerplate
+# webpack-boilerplate 2
