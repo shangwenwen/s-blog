@@ -21,14 +21,14 @@ class PostContainer extends React.Component {
   // 初始化页面渲染数据
   componentDidMount() {
     if (this.props.post.pathname !== this.props.location.pathname) {
-      this.loadAsyncPost()
+      this._loadPost()
     }
   }
 
   // 页面更新加载数据
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.location.pathname !== this.props.location.pathname) {
-      this.loadAsyncPost()
+      this._loadPost()
     }
   }
 
@@ -40,12 +40,13 @@ class PostContainer extends React.Component {
 
   async _loadPost() {
     const { getPost, match: { params: { id }}, location: { pathname }} = this.props
-    dispatch()
-    this._requestData = await PostContainer.getPost(id)
+    dispatch(postActions.request())
+    this._requestData = await postService.getPost(id)
       .then(
         (res) => {
           this._requestData = null
           console.log(res)
+          dispatch(postActions.success())
         }
       )
 
@@ -83,7 +84,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-  getPost: postActions.getPost
+  request: postActions.request,
+  success: postActions.success,
+  failure: postActions.failure
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostContainer)
