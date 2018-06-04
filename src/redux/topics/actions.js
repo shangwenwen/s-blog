@@ -38,7 +38,7 @@ function getTopics(params) {
   }
 }
 
-function getScrollTop(scrollTop){
+function getScrollTop(scrollTop) {
   return {
     type: topicsConstants.GET_SCROLL_TOP,
     scrollTop

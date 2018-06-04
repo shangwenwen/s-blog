@@ -15,7 +15,7 @@ class TopicsContainer extends React.Component {
   }
 
   componentDidMount() {
-    const {topics, location} = this.props
+    const { topics, location } = this.props
     if (topics.pathname !== location.pathname) {
       this.loadAsyncTopics()
     }

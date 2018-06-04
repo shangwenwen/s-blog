@@ -32,14 +32,14 @@ class PostContainer extends React.Component {
     }
   }
 
-  componentWillUnMount() {
-    if(this._requestData) {
+  componentWillUnmount() {
+    if (this._requestData) {
       this._requestData = null
     }
   }
 
   async _loadPost() {
-    const { getPost, match: { params: { id }}, location: { pathname }} = this.props
+    const { dispatch, getPost, match: { params: { id }}, location: { pathname }} = this.props
     dispatch(postActions.request())
     this._requestData = await postService.getPost(id)
       .then(
@@ -53,7 +53,7 @@ class PostContainer extends React.Component {
     getPost({ id, pathname })
   }
 
-  createMarkup() {
+  _createMarkup() {
     const { post: { data: { html }}} = this.props
     return {
       __html: html
@@ -68,7 +68,7 @@ class PostContainer extends React.Component {
     } else {
       return (
         <div>
-          <div dangerouslySetInnerHTML={this.createMarkup()}></div>
+          <div dangerouslySetInnerHTML={this._createMarkup()}></div>
           <div>{this.props.post.data.visit}</div>
         </div>
       )

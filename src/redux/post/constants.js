@@ -1,5 +1,5 @@
-export const postConstants = {
-  GET_POST_REQUEST: 'GET_POST_REQUEST',
-  GET_POST_SUCCESS: 'GET_POST_SUCCESS',
-  GET_POST_FAILURE: 'GET_POST_FAILURE',
-}
+const LOAD = 'LOAD'
+const LOAD_SUCCESS = 'LOAD_SUCCESS'
+const LOAD_FAILURE = 'LOAD_FAILURE'
+
+export const postConstants = { LOAD, LOAD_SUCCESS, LOAD_FAILURE }

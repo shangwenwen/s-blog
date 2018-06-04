@@ -1,20 +1,19 @@
 import { postConstants } from './constants'
-import { postService } from './service'
 
 // action creates
 const load = () => ({
-  type: postConstants.GET_POST_REQUEST
+  type: postConstants.LOAD
 })
 
 const loadSuccess = (data, pathname) => ({
-  type: postConstants.GET_POST_SUCCESS,
+  type: postConstants.LOAD_SUCCESS,
   data,
   pathname
 })
 
 const loadFailure = (error) => ({
-  type: postConstants.GET_POST_FAILURE,
+  type: postConstants.LOAD_FAILURE,
   error
 })
 
-export const postActions = { load,loadSuccess,loadFailure }
+export const postActions = { load, loadSuccess, loadFailure }
