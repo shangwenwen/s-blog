@@ -41,6 +41,7 @@ class PostContainer extends React.Component {
   }
 
   loadAsyncPost() {
+    
     const { getPost, match: { params: { id }}, location: { pathname }} = this.props
     this._asyncRequest = postService.getPost(id).then(
         (externalData) => {
