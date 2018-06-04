@@ -21,10 +21,6 @@ export function topicsReducer(state = initStates, action) {
         'error': action.error,
         'isPending': false
       })
-    case 'SAVE_SCROLL_TOP':
-      return state.merge({
-        'scrollTop': action.top,
-      })
     case topicsConstants.GET_TOPICS_SUCCESS: {
       const { page, list, hasNext, pathname } = action
       const lists = (page === 1) ? [].concat(list) : state.toJS().lists.concat(list)
@@ -37,6 +33,10 @@ export function topicsReducer(state = initStates, action) {
         'error': null
       })
     }
+    case topicsConstants.GET_SCROLL_TOP:
+      return state.merge({
+        'scrollTop': action.scrollTop,
+      })
     default:
       return state
   }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import { hot } from 'react-hot-loader'
@@ -19,7 +19,7 @@ const AsyncAboutContainer = Loadable({ loader: () => import('../Me'), loading: L
 // css style
 import '../../assets/style.css'
 
-class AppContainer extends Component {
+class AppContainer extends React.Component {
   componentDidMount() {
     let token = cookies.get('user')
 
@@ -42,7 +42,6 @@ class AppContainer extends Component {
             <PrivateRoute name="account" path="/account" component={AsyncAccountContainer} />
           </Switch>
         </div>
-
       </div>
     )
   }

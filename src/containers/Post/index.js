@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-// actions
 import { postActions, postService } from '../../redux/post'
 
 class PostContainer extends React.Component {
@@ -33,22 +32,24 @@ class PostContainer extends React.Component {
     }
   }
 
-  componentWillUnmount() {
-    if (this._asyncRequest) {
-
-      console.log(typeof this._asyncRequest)
+  componentWillUnMount() {
+    if(this._requestData) {
+      this._requestData = null
     }
   }
 
-  loadAsyncPost() {
-    
+  async _loadPost() {
     const { getPost, match: { params: { id }}, location: { pathname }} = this.props
-    this._asyncRequest = postService.getPost(id).then(
-        (externalData) => {
-          // this._asyncRequest = null
-          this.setState({externalData})
+    dispatch()
+    this._requestData = await PostContainer.getPost(id)
+      .then(
+        (res) => {
+          this._requestData = null
+          console.log(res)
         }
-    )
+      )
+
+    getPost({ id, pathname })
   }
 
   createMarkup() {
