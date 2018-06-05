@@ -17,7 +17,7 @@ class TopicsContainer extends React.Component {
   componentDidMount() {
     const { topics, location } = this.props
     if (topics.pathname !== location.pathname) {
-      this.loadAsyncTopics()
+      this._loadAsyncTopics()
     }
 
     const scrollTop = topics.scrollTop || 0
@@ -28,7 +28,7 @@ class TopicsContainer extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.location.pathname !== this.props.location.pathname) {
-      this.loadAsyncTopics()
+      this._loadAsyncTopics()
     }
   }
 
@@ -39,7 +39,7 @@ class TopicsContainer extends React.Component {
   // 加载更多
   handleLoadMore() {
     const { page } = this.props.topics
-    this.loadAsyncTopics(page + 1)
+    this._loadAsyncTopics(page + 1)
   }
 
   // 本地存储滚动条顶部距离
@@ -49,7 +49,7 @@ class TopicsContainer extends React.Component {
   }
 
   // 异步加载列表
-  loadAsyncTopics(page = 1) {
+  _loadAsyncTopics(page = 1) {
     const {
       getTopics,
       location: { pathname },

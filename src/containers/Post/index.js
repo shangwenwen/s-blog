@@ -6,7 +6,7 @@ import post from '../../redux/post'
 
 class PostContainer extends React.Component {
   state = {}
-  //
+
   // static getDerivedStateFromProps(nextProps, prevState) {
   //   if (nextProps.post.pathname !== prevState.pathname) {
   //     return {
@@ -19,9 +19,7 @@ class PostContainer extends React.Component {
 
   // 初始化页面渲染数据
   componentDidMount() {
-    if (this.props.post.pathname !== this.props.location.pathname) {
-      this._loadPost()
-    }
+    this._loadPost()
   }
 
   // 页面更新加载数据
