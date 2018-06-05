@@ -19,7 +19,7 @@ const checkStatus = (response) => {
   }
 }
 
-export const Api = {
+export default {
   post: (url, data) => axios({
     method: 'post',
     url: url,

@@ -1,19 +1,19 @@
-import { postConstants } from './constants'
+import constants from './constants'
 
 // action creates
 const load = () => ({
-  type: postConstants.LOAD
+  type: constants.LOAD
 })
 
 const loadSuccess = (data, pathname) => ({
-  type: postConstants.LOAD_SUCCESS,
+  type: constants.LOAD_SUCCESS,
   data,
   pathname
 })
 
 const loadFailure = (error) => ({
-  type: postConstants.LOAD_FAILURE,
+  type: constants.LOAD_FAILURE,
   error
 })
 
-export const postActions = { load, loadSuccess, loadFailure }
+export default { load, loadSuccess, loadFailure }

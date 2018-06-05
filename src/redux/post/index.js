@@ -1,4 +1,6 @@
-export * from './actions'
-export * from './constants'
-export * from './reducer'
-export * from './service'
+import actions from './actions'
+import constants from './constants'
+import reducer from './reducer'
+import service from './service'
+
+export default { actions, constants, reducer, service }

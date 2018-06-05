@@ -1,7 +1,7 @@
-import { Api } from '../../helpers'
+import helpers from '../../helpers'
 
 const getUser = () => {
-  return Api.get('/frontend/user/account')
+  return helpers.api.get('/frontend/user/account')
 }
 
 export const userService = { getUser }

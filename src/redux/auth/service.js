@@ -1,11 +1,11 @@
-import { Api } from '../../helpers'
+import helpers from '../../helpers'
 
 const login = (username, password) => {
-  return Api.post('/frontend/user/login', { username, password })
+  return helpers.api.post('/frontend/user/login', { username, password })
 }
 
 const logout = () => {
-  return Api.post('/frontend/user/logout', {})
+  return helpers.api.post('/frontend/user/logout', {})
 }
 
 export const authService = { login, logout }

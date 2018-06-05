@@ -1,6 +1,7 @@
 import { fromJS } from 'immutable'
-import { postConstants } from './constants'
+import constants from './constants'
 
+// reducer
 const initStates = fromJS({
   data: {},
   pathname: '',
@@ -8,13 +9,13 @@ const initStates = fromJS({
   error: null
 })
 
-export function postReducer(state = initStates, action) {
+export default function reducer(state = initStates, action) {
   switch (action.type) {
-    case postConstants.GET_POST_REQUEST:
+    case constants.LOAD:
       return state.merge({
         'isPending': true
       })
-    case postConstants.GET_POST_SUCCESS: {
+    case constants.LOAD_SUCCESS: {
       const { pathname, data } = action
       return state.merge({
         'data': data,
@@ -22,7 +23,7 @@ export function postReducer(state = initStates, action) {
         'isPending': false
       })
     }
-    case postConstants.GET_POST_FAILURE:
+    case constants.LOAD_FAILURE:
       return state.merge({
         'isPending': false,
         'error': action.error

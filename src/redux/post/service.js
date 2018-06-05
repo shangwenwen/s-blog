@@ -1,7 +1,7 @@
-import { Api } from '../../helpers'
+import helpers from '../../helpers'
 
 const getPost = (id) => {
-  return Api.get('/frontend/article/item', { id })
+  return helpers.api.get('/frontend/article/item', { id })
 }
 
-export const postService = { getPost }
+export default { getPost }

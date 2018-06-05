@@ -1,12 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { postActions, postService } from '../../redux/post'
+// redux post
+import post from '../../redux/post'
 
 class PostContainer extends React.Component {
-  state = {
-    externalData: null
-  }
+  state = {}
   //
   // static getDerivedStateFromProps(nextProps, prevState) {
   //   if (nextProps.post.pathname !== prevState.pathname) {
@@ -32,25 +31,18 @@ class PostContainer extends React.Component {
     }
   }
 
-  componentWillUnmount() {
-    if (this._requestData) {
-      this._requestData = null
-    }
-  }
-
   async _loadPost() {
-    const { dispatch, getPost, match: { params: { id }}, location: { pathname }} = this.props
-    dispatch(postActions.request())
-    this._requestData = await postService.getPost(id)
+    const { dispatch, load, loadSuccess, loadFailure, match: { params: { id }}, location: { pathname }} = this.props
+    dispatch(load())
+    await post.service.getPost(id)
       .then(
         (res) => {
-          this._requestData = null
-          console.log(res)
-          dispatch(postActions.success())
+          if (res.data.code === 200) {
+            return dispatch(loadSuccess(res.data.data, pathname))
+          }
+          return dispatch(loadFailure(res.data))
         }
       )
-
-    getPost({ id, pathname })
   }
 
   _createMarkup() {
@@ -61,7 +53,7 @@ class PostContainer extends React.Component {
   }
 
   render() {
-    if (this.state.externalData === null) {
+    if (this.props.post.isPending) {
       return (
         <div>loading..........</div>
       )
@@ -83,10 +75,13 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = {
-  request: postActions.request,
-  success: postActions.success,
-  failure: postActions.failure
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch,
+    load: post.actions.load,
+    loadSuccess: post.actions.loadSuccess,
+    loadFailure: post.actions.loadFailure
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostContainer)

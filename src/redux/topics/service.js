@@ -1,7 +1,7 @@
-import { Api } from '../../helpers'
+import helpers from '../../helpers'
 
 const getTopics = (params) => {
-  return Api.get('/frontend/article/list', params)
+  return helpers.api.get('/frontend/article/list', params)
 }
 
 export const TopicsService = { getTopics }
