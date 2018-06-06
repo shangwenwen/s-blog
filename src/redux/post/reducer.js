@@ -16,10 +16,9 @@ export default function reducer(state = initStates, action) {
         'isPending': true
       })
     case constants.LOAD_SUCCESS: {
-      const { pathname, data } = action
+      const { data } = action
       return state.merge({
         'data': data,
-        'pathname': pathname,
         'isPending': false
       })
     }

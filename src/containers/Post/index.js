@@ -5,38 +5,57 @@ import { connect } from 'react-redux'
 import post from '../../redux/post'
 
 class PostContainer extends React.Component {
-  state = {}
+  state = {
+    externalData: null
+  }
 
-  // static getDerivedStateFromProps(nextProps, prevState) {
-  //   if (nextProps.post.pathname !== prevState.pathname) {
-  //     return {
-  //       pathname: nextProps.post.pathname
-  //     }
-  //   }
-  //
-  //   return null
-  // }
+  static getDerivedStateFromProps(props, state) {
+    if (props.match.params.id !== state.prevId) {
+      return {
+        externalData: null,
+        prevId: props.match.params.id
+      }
+    }
+
+    return null
+  }
 
   // 初始化页面渲染数据
   componentDidMount() {
-    this._loadPost()
+    this._asyncLoadPost(this.props.match.params.id)
   }
 
   // 页面更新加载数据
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.location.pathname !== this.props.location.pathname) {
-      this._loadPost()
+    if (prevState.externalData === null) {
+      this._asyncLoadPost(this.props.match.params.id)
     }
   }
 
-  async _loadPost() {
-    const { dispatch, load, loadSuccess, loadFailure, match: { params: { id }}, location: { pathname }} = this.props
+  componentWillUnmount(){
+    this._currentId && (this._currentId = null)
+  }
+
+  async _asyncLoadPost(id) {
+    const { dispatch, load, loadSuccess, loadFailure} = this.props
+
+    if(id === this._currentId){
+      return
+    }
+
+    this._currentId = id
+
     dispatch(load())
     await post.service.getPost(id)
       .then(
         (res) => {
           if (res.data.code === 200) {
-            return dispatch(loadSuccess(res.data.data, pathname))
+            if(id === this._currentId) {
+              this.setState({
+                externalData: res.data.data
+              })
+            }
+            return dispatch(loadSuccess(res.data.data))
           }
           return dispatch(loadFailure(res.data))
         }
@@ -44,14 +63,15 @@ class PostContainer extends React.Component {
   }
 
   _createMarkup() {
-    const { post: { data: { html }}} = this.props
+    const { externalData: { html }} = this.state
     return {
       __html: html
     }
   }
 
   render() {
-    if (this.props.post.isPending) {
+    console.log('render')
+    if (this.state.externalData === null) {
       return (
         <div>loading..........</div>
       )
@@ -59,7 +79,7 @@ class PostContainer extends React.Component {
       return (
         <div>
           <div dangerouslySetInnerHTML={this._createMarkup()}></div>
-          <div>{this.props.post.data.visit}</div>
+          <div>{this.state.externalData.visit}</div>
         </div>
       )
     }
@@ -67,11 +87,11 @@ class PostContainer extends React.Component {
 }
 
 // redux
-const mapStateToProps = (state) => {
-  return {
-    post: state.post.toJS()
-  }
-}
+// const mapStateToProps = (state) => {
+//   return {
+//     post: state.post.toJS()
+//   }
+// }
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -82,4 +102,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostContainer)
+export default connect(null, mapDispatchToProps)(PostContainer)

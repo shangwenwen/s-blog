@@ -5,10 +5,9 @@ const load = () => ({
   type: constants.LOAD
 })
 
-const loadSuccess = (data, pathname) => ({
+const loadSuccess = (data) => ({
   type: constants.LOAD_SUCCESS,
-  data,
-  pathname
+  data
 })
 
 const loadFailure = (error) => ({
