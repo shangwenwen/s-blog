@@ -70,7 +70,6 @@ class PostContainer extends React.Component {
   }
 
   render() {
-    console.log('render')
     if (this.state.externalData === null) {
       return (
         <div>loading..........</div>
