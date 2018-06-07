@@ -23,5 +23,4 @@ const scrollTop = () => ({
   scrollTop
 })
 
-
-export default {load, loadSuccess, loadFailure, scrollTop}
+export default { load, loadSuccess, loadFailure, scrollTop }

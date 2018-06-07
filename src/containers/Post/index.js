@@ -6,7 +6,6 @@ import post from '../../redux/post'
 
 class PostContainer extends React.Component {
   state = {}
-  _asyncRequest = null
 
   // 初始化页面渲染数据
   componentDidMount() {
