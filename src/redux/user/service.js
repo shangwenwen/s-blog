@@ -1,7 +1,7 @@
 import helpers from '../../helpers'
 
-const getUser = () => {
+const fetchUser = () => {
   return helpers.api.get('/frontend/user/account')
 }
 
-export const userService = { getUser }
+export default { fetchUser }

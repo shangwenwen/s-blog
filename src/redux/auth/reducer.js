@@ -1,23 +1,23 @@
 import { Map } from 'immutable'
-import { authConstants } from './constants'
+import constants from './constants'
 
 // userReducer
-export function authReducer(state = new Map(), action) {
+export default function reducer(state = new Map(), action) {
   switch (action.type) {
-    case authConstants.AUTH_LOGIN_REQUEST:
+    case constants.LOGIN:
       return state.set('isPending', true)
-    case authConstants.AUTH_LOGIN_FAILURE:
+    case constants.LOGIN_FAILURE:
       return state.merge({
         'error': action.error,
         'isPending': false
       })
-    case authConstants.AUTH_LOGIN_SUCCESS:
+    case constants.LOGIN_SUCCESS:
       return state.merge({
         'token': action.user,
         'isPending': false,
         'error': null
       })
-    case authConstants.AUTH_LOGOUT:
+    case constants.LOGOUT:
       return new Map()
     default:
       return state

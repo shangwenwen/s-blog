@@ -4,7 +4,6 @@ import constants from './constants'
 // reducer
 const initStates = fromJS({
   data: {},
-  pathname: '',
   isPending: false,
   error: null
 })

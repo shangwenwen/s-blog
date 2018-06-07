@@ -8,4 +8,4 @@ const logout = () => {
   return helpers.api.post('/frontend/user/logout', {})
 }
 
-export const authService = { login, logout }
+export default { login, logout }

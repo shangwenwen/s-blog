@@ -5,20 +5,8 @@ import { connect } from 'react-redux'
 import post from '../../redux/post'
 
 class PostContainer extends React.Component {
-  state = {
-    externalData: null
-  }
-
-  static getDerivedStateFromProps(props, state) {
-    if (props.match.params.id !== state.prevId) {
-      return {
-        externalData: null,
-        prevId: props.match.params.id
-      }
-    }
-
-    return null
-  }
+  state = {}
+  _asyncRequest = null
 
   // 初始化页面渲染数据
   componentDidMount() {
@@ -27,34 +15,27 @@ class PostContainer extends React.Component {
 
   // 页面更新加载数据
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.externalData === null) {
+    if (JSON.stringify(prevProps.post.data) === '{}') {
       this._asyncLoadPost(this.props.match.params.id)
     }
   }
 
-  componentWillUnmount(){
-    this._currentId && (this._currentId = null)
+  componentWillUnmount() {
+    this._asyncRequest && (this._asyncRequest = null)
   }
 
   async _asyncLoadPost(id) {
-    const { dispatch, load, loadSuccess, loadFailure} = this.props
+    const { dispatch, load, loadSuccess, loadFailure } = this.props
 
-    if(id === this._currentId){
+    if (this._asyncRequest) {
       return
     }
 
-    this._currentId = id
-
     dispatch(load())
-    await post.service.getPost(id)
+    this._asyncRequest = await post.service.getPost(id)
       .then(
         (res) => {
           if (res.data.code === 200) {
-            if(id === this._currentId) {
-              this.setState({
-                externalData: res.data.data
-              })
-            }
             return dispatch(loadSuccess(res.data.data))
           }
           return dispatch(loadFailure(res.data))
@@ -63,14 +44,14 @@ class PostContainer extends React.Component {
   }
 
   _createMarkup() {
-    const { externalData: { html }} = this.state
+    const { post: { data: { html }}} = this.props
     return {
       __html: html
     }
   }
 
   render() {
-    if (this.state.externalData === null) {
+    if (this.props.post.isPending) {
       return (
         <div>loading..........</div>
       )
@@ -78,7 +59,7 @@ class PostContainer extends React.Component {
       return (
         <div>
           <div dangerouslySetInnerHTML={this._createMarkup()}></div>
-          <div>{this.state.externalData.visit}</div>
+          <div>{this.props.post.data.visit}</div>
         </div>
       )
     }
@@ -86,11 +67,11 @@ class PostContainer extends React.Component {
 }
 
 // redux
-// const mapStateToProps = (state) => {
-//   return {
-//     post: state.post.toJS()
-//   }
-// }
+const mapStateToProps = (state) => {
+  return {
+    post: state.post.toJS()
+  }
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -101,4 +82,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(PostContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(PostContainer)

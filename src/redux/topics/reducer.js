@@ -1,5 +1,5 @@
 import { fromJS } from 'immutable'
-import { topicsConstants } from './constants'
+import constants from './constants'
 
 // userReducer
 const initStates = fromJS({
@@ -12,16 +12,16 @@ const initStates = fromJS({
   error: null
 })
 
-export function topicsReducer(state = initStates, action) {
+export default function reducer(state = initStates, action) {
   switch (action.type) {
-    case topicsConstants.GET_TOPICS_REQUEST:
+    case constants.LOAD:
       return state.set('isPending', true)
-    case topicsConstants.GET_TOPICS_FAILURE:
+    case constants.LOAD_FAILURE:
       return state.merge({
         'error': action.error,
         'isPending': false
       })
-    case topicsConstants.GET_TOPICS_SUCCESS: {
+    case constants.LOAD_SUCCESS: {
       const { page, list, hasNext, pathname } = action
       const lists = (page === 1) ? [].concat(list) : state.toJS().lists.concat(list)
       return state.merge({
@@ -33,7 +33,7 @@ export function topicsReducer(state = initStates, action) {
         'error': null
       })
     }
-    case topicsConstants.GET_SCROLL_TOP:
+    case constants.SCROLL_TOP:
       return state.merge({
         'scrollTop': action.scrollTop,
       })

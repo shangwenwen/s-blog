@@ -1,39 +1,18 @@
-import { userService } from './service'
-import { userConstants } from './constants'
-// import cookies from 'js-cookie'
+import constants from './constants'
 
-function getUser() {
-  // action creates
-  const request = () => ({
-    type: userConstants.GET_USER_REQUEST
-  })
+// action creates
+const load = () => ({
+  type: constants.LOAD
+})
 
-  const success = (user) => ({
-    type: userConstants.GET_USER_SUCCESS,
-    user
-  })
+const loadSuccess = (user) => ({
+  type: constants.LOAD_SUCCESS,
+  user
+})
 
-  const failure = (error) => ({
-    type: userConstants.GET_USER_FAILURE,
-    error
-  })
+const loadFailure = (error) => ({
+  type: constants.LOAD_FAILURE,
+  error
+})
 
-  return async (dispatch) => {
-    try {
-      dispatch(request())
-      await userService.getUser()
-        .then(
-          (res) => {
-            if (res.data.code === -400 && res.data.data === '') {
-              return dispatch(failure(res.data.message))
-            }
-            return dispatch(success(res.data.data))
-          }
-        )
-    } catch (error) {
-      console.log('get user errors')
-    }
-  }
-}
-
-export const userActions = { getUser }
+export default { load, loadSuccess, loadFailure }

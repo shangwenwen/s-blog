@@ -1,9 +1,9 @@
 import { Map } from 'immutable'
-import { userConstants } from './constants'
-import { authConstants } from '../auth/constants'
+import userConstants from './constants'
+import authConstants from '../auth/constants'
 
 // userReducer
-export function userReducer(state = new Map(), action) {
+export default function reducer(state = new Map(), action) {
   switch (action.type) {
     case userConstants.GET_USER_REQUEST:
       return state.set('isPending', true)
