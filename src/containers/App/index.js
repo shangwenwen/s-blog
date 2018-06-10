@@ -6,8 +6,8 @@ import cookies from 'js-cookie'
 import Loadable from 'react-loadable'
 
 // actions
-import { authActions } from '../../redux/auth'
-import { userActions } from '../../redux/user'
+import auth from '../../redux/auth'
+import user from '../../redux/user'
 
 // components & containers 异步加载组件
 import { HeaderComponent, LoadingComponent, PrivateRoute } from '../../components'
@@ -56,9 +56,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-  login: authActions.login,
-  logout: authActions.logout,
-  getUser: userActions.getUser
+  login: auth.actions.login,
+  logout: auth.actions.logout,
+  getUser: user.actions.getUser
 }
 
 // 使用 withRouter 传递 history
