@@ -32,14 +32,11 @@ class PostContainer extends React.Component {
 
     dispatch(load())
     this._asyncRequest = await post.service.getPost(id)
-      .then(
-        (res) => {
-          if (res.data.code === 200) {
-            return dispatch(loadSuccess(res.data.data))
-          }
-          return dispatch(loadFailure(res.data))
-        }
-      )
+    if(res.data.code === 200) {
+      dispatch(loadSuccess(res.data.data))
+    }
+
+    dispatch(loadFailure(res.data))
   }
 
   _createMarkup() {
