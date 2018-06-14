@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export const TopicComponent = (props) => {
+const TopicComponent = (props) => {
   return (
     <div className="list">
       <Link to={'/post/' + props.item._id}>{props.item.title}</Link>
@@ -10,3 +10,5 @@ export const TopicComponent = (props) => {
     </div>
   )
 }
+
+export default TopicComponent

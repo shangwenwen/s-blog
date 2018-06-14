@@ -5,12 +5,12 @@ const load = () => ({
   type: constants.LOAD
 })
 
-const loadSuccess = (list, hasNext) => ({
+const loadSuccess = (list, hasNext, page, pathname) => ({
   type: constants.LOAD_SUCCESS,
-  page: params.page,
+  page,
   list,
   hasNext,
-  pathname: params.pathname
+  pathname
 })
 
 const loadFailure = (error) => ({
@@ -18,7 +18,7 @@ const loadFailure = (error) => ({
   error
 })
 
-const scrollTop = () => ({
+const scrollTop = (scrollTop) => ({
   type: constants.SCROLL_TOP,
   scrollTop
 })

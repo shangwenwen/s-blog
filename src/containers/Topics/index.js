@@ -1,11 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-// actions
-import { topicsActions } from '../../redux/topics'
+// redux
+import topics from '../../redux/topics'
 
 // components & containers
-import { CategoryNavComponent, TopicComponent } from '../../components'
+import CategoryNavComponent from '../../components/CategoryNav'
+import TopicComponent from '../../components/Topic'
 
 class TopicsContainer extends React.Component {
   constructor(props) {
@@ -42,22 +43,44 @@ class TopicsContainer extends React.Component {
     this._loadAsyncTopics(page + 1)
   }
 
+  _getScrollTop() {
+    let scrollTop = 0
+    if (document.documentElement && document.documentElement.scrollTop) {
+      scrollTop = document.documentElement.scrollTop
+    } else if (document.body) {
+      scrollTop = document.body.scrollTop
+    }
+    return scrollTop
+  }
+
   // 本地存储滚动条顶部距离
   handleScroll() {
-    const scrollTop = this.scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
-    this.props.getScrollTop(scrollTop)
+    const { dispatch, scrollTop } = this.props
+    dispatch(scrollTop(this._getScrollTop()))
   }
 
   // 异步加载列表
-  _loadAsyncTopics(page = 1) {
+  async _loadAsyncTopics(page = 1) {
     const {
-      getTopics,
+      dispatch,
+      load,
+      loadSuccess,
+      loadFailure,
       location: { pathname },
       match: {
         params: { id, key, by }
       }
     } = this.props
-    getTopics({ id, key, by, limit: 5, page, pathname })
+
+    dispatch(load())
+    const { data } = await topics.service.fetchTopics({ id, key, by, limit: 5, page, pathname })
+
+    if (data.code === 200) {
+      return dispatch(loadSuccess(data.data.list, data.data.hasNext, page, pathname))
+    }
+
+    return dispatch(loadFailure())
+
   }
 
   render() {
@@ -107,9 +130,14 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = {
-  getTopics: topicsActions.getTopics,
-  getScrollTop: topicsActions.getScrollTop
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch,
+    load: topics.actions.load,
+    loadSuccess: topics.actions.loadSuccess,
+    loadFailure: topics.actions.loadFailure,
+    scrollTop: topics.actions.scrollTop
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TopicsContainer)

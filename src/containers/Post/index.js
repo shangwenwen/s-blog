@@ -1,11 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-// redux post
+// redux
 import post from '../../redux/post'
 
 class PostContainer extends React.Component {
-  state = {}
+  constructor(props) {
+    super(props)
+
+    this.handleLike = this.handleLike.bind(this)
+  }
 
   // 初始化页面渲染数据
   componentDidMount() {
@@ -14,29 +18,25 @@ class PostContainer extends React.Component {
 
   // 页面更新加载数据
   componentDidUpdate(prevProps, prevState) {
-    if (JSON.stringify(prevProps.post.data) === '{}') {
+    if (this.props.location.pathname !== prevProps.location.pathname ) {
       this._asyncLoadPost(this.props.match.params.id)
     }
   }
 
-  componentWillUnmount() {
-    this._asyncRequest && (this._asyncRequest = null)
+  handleLike() {
+    console.log('like')
   }
 
   async _asyncLoadPost(id) {
     const { dispatch, load, loadSuccess, loadFailure } = this.props
 
-    if (this._asyncRequest) {
-      return
-    }
-
     dispatch(load())
-    this._asyncRequest = await post.service.getPost(id)
-    if(res.data.code === 200) {
-      dispatch(loadSuccess(res.data.data))
+    const {data} = await post.service.getPost(id)
+    if (data.code === 200) {
+      return dispatch(loadSuccess(data.data))
     }
 
-    dispatch(loadFailure(res.data))
+    return dispatch(loadFailure(data))
   }
 
   _createMarkup() {
@@ -56,6 +56,7 @@ class PostContainer extends React.Component {
         <div>
           <div dangerouslySetInnerHTML={this._createMarkup()}></div>
           <div>{this.props.post.data.visit}</div>
+          <div onClick={this.handleLike}>{this.props.post.data.like}</div>
         </div>
       )
     }

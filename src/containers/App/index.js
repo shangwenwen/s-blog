@@ -10,7 +10,10 @@ import auth from '../../redux/auth'
 import user from '../../redux/user'
 
 // components & containers 异步加载组件
-import { HeaderComponent, LoadingComponent, PrivateRoute } from '../../components'
+import HeaderComponent from '../../components/Header'
+import LoadingComponent from '../../components/Loading'
+import PrivateRoute from '../../components/PrivateRoute'
+
 const AsyncCategoryContainer = Loadable({ loader: () => import('../Topics'), loading: LoadingComponent })
 const AsyncPostContainer = Loadable({ loader: () => import('../Post'), loading: LoadingComponent })
 const AsyncAccountContainer = Loadable({ loader: () => import('../Account'), loading: LoadingComponent })

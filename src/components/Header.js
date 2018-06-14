@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink, Link } from 'react-router-dom'
 
-export class HeaderComponent extends React.Component {
+class HeaderComponent extends React.Component {
   constructor(props) {
     super(props)
     this.handleLogout = this.handleLogout.bind(this)
@@ -39,3 +39,5 @@ export class HeaderComponent extends React.Component {
     )
   }
 }
+
+export default HeaderComponent

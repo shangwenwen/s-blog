@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import cookies from 'js-cookie'
 
-export const PrivateRoute = ({ component: Component }) => (
+const PrivateRoute = ({ component: Component }) => (
   <Route
     render={
       (props) => (
@@ -13,3 +13,5 @@ export const PrivateRoute = ({ component: Component }) => (
     }
   />
 )
+
+export default PrivateRoute

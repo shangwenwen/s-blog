@@ -1,9 +1,11 @@
 import React from 'react'
 
-export const LoadingComponent = () => {
+const LoadingComponent = () => {
   return (
     <div className="sw-loading">
       loading...
     </div>
   )
 }
+
+export default LoadingComponent
