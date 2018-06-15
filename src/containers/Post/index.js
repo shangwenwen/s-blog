@@ -18,7 +18,7 @@ class PostContainer extends React.Component {
 
   // 页面更新加载数据
   componentDidUpdate(prevProps, prevState) {
-    if (this.props.location.pathname !== prevProps.location.pathname ) {
+    if (this.props.location.pathname !== prevProps.location.pathname) {
       this._asyncLoadPost(this.props.match.params.id)
     }
   }
@@ -31,7 +31,7 @@ class PostContainer extends React.Component {
     const { dispatch, load, loadSuccess, loadFailure } = this.props
 
     dispatch(load())
-    const {data} = await post.service.getPost(id)
+    const { data } = await post.service.fetchPost(id)
     if (data.code === 200) {
       return dispatch(loadSuccess(data.data))
     }

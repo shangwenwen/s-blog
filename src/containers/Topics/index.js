@@ -61,26 +61,17 @@ class TopicsContainer extends React.Component {
 
   // 异步加载列表
   async _loadAsyncTopics(page = 1) {
-    const {
-      dispatch,
-      load,
-      loadSuccess,
-      loadFailure,
-      location: { pathname },
-      match: {
-        params: { id, key, by }
-      }
-    } = this.props
+    const { dispatch, load, loadSuccess, loadFailure, location: { pathname }, match: { params: { id, key, by } } } = this.props
 
     dispatch(load())
+
     const { data } = await topics.service.fetchTopics({ id, key, by, limit: 5, page, pathname })
 
     if (data.code === 200) {
       return dispatch(loadSuccess(data.data.list, data.data.hasNext, page, pathname))
+    } else {
+      return dispatch(loadFailure())
     }
-
-    return dispatch(loadFailure())
-
   }
 
   render() {

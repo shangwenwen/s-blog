@@ -1,7 +1,7 @@
 import helpers from '../../helpers'
 
-const getPost = (id) => {
+const fetchPost = (id) => {
   return helpers.api.get('/frontend/article/item', { id })
 }
 
-export default { getPost }
+export default { fetchPost }

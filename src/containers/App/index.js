@@ -13,6 +13,7 @@ import user from '../../redux/user'
 import HeaderComponent from '../../components/Header'
 import LoadingComponent from '../../components/Loading'
 import PrivateRoute from '../../components/PrivateRoute'
+import BackTopComponent from '../../components/BackTop'
 
 const AsyncCategoryContainer = Loadable({ loader: () => import('../Topics'), loading: LoadingComponent })
 const AsyncPostContainer = Loadable({ loader: () => import('../Post'), loading: LoadingComponent })
@@ -45,6 +46,7 @@ class AppContainer extends React.Component {
             <PrivateRoute name="account" path="/account" component={AsyncAccountContainer} />
           </Switch>
         </div>
+        <BackTopComponent />
       </div>
     )
   }
