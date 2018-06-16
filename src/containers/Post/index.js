@@ -7,7 +7,6 @@ import post from '../../redux/post'
 class PostContainer extends React.Component {
   constructor(props) {
     super(props)
-
     this.handleLike = this.handleLike.bind(this)
   }
 
@@ -40,7 +39,7 @@ class PostContainer extends React.Component {
   }
 
   _createMarkup() {
-    const { post: { data: { html }}} = this.props
+    const { post: { data: { html } } } = this.props
     return {
       __html: html
     }
