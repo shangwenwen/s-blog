@@ -39,7 +39,7 @@ class PostContainer extends React.Component {
   }
 
   _createMarkup() {
-    const { post: { data: { html } } } = this.props
+    const { post: { data: { html }}} = this.props
     return {
       __html: html
     }

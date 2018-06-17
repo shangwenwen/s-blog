@@ -61,7 +61,7 @@ class TopicsContainer extends React.Component {
 
   // 异步加载列表
   async _loadAsyncTopics(page = 1) {
-    const { dispatch, load, loadSuccess, loadFailure, location: { pathname }, match: { params: { id, key, by } } } = this.props
+    const { dispatch, load, loadSuccess, loadFailure, location: { pathname }, match: { params: { id, key, by }}} = this.props
 
     dispatch(load())
 
