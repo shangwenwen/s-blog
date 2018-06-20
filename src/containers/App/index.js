@@ -2,8 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import { hot } from 'react-hot-loader'
-import cookies from 'js-cookie'
-import Loadable from 'react-loadable'
 
 // actions
 import auth from '../../redux/auth'
@@ -11,21 +9,20 @@ import user from '../../redux/user'
 
 // components & containers 异步加载组件
 import HeaderComponent from '../../components/Header'
-import LoadingComponent from '../../components/Loading'
 import PrivateRoute from '../../components/PrivateRoute'
 import BackTopComponent from '../../components/BackTop'
 
-const AsyncCategoryContainer = Loadable({ loader: () => import('../Topics'), loading: LoadingComponent })
-const AsyncPostContainer = Loadable({ loader: () => import('../Post'), loading: LoadingComponent })
-const AsyncAccountContainer = Loadable({ loader: () => import('../Account'), loading: LoadingComponent })
-const AsyncAboutContainer = Loadable({ loader: () => import('../Me'), loading: LoadingComponent })
+import TopicsContainer from '../Topics'
+import PostContainer from '../Post'
+import AccountContainer from '../Account'
+import MeContainer from '../Me'
 
 // css style
 import '../../assets/style.css'
 
 class AppContainer extends React.Component {
   componentDidMount() {
-    let token = cookies.get('user')
+    const { token } = this.props.auth
 
     if (token && typeof this.props.user.username === 'undefined') {
       this.props.getUser()
@@ -38,12 +35,12 @@ class AppContainer extends React.Component {
         <HeaderComponent username={this.props.user.username} onLogin={this.props.login} onGetUser={this.props.getUser} onLogout={this.props.logout} haslogin={this.props.auth.token} history={this.props.history} />
         <div className="container">
           <Switch>
-            <Route exact path="/" component={AsyncCategoryContainer} />
-            <Route name="category" path="/category/:id" component={AsyncCategoryContainer} />
-            <Route name="search" path="/search/:key" component={AsyncCategoryContainer} />
-            <Route name="post" path="/post/:id" component={AsyncPostContainer} />
-            <Route name="about" path="/about" component={AsyncAboutContainer} />
-            <PrivateRoute name="account" path="/account" component={AsyncAccountContainer} />
+            <Route exact path="/" component={TopicsContainer} />
+            <Route name="category" path="/category/:id" component={TopicsContainer} />
+            <Route name="search" path="/search/:key" component={TopicsContainer} />
+            <Route name="post" path="/post/:id" component={PostContainer} />
+            <Route name="about" path="/about" component={MeContainer} />
+            <PrivateRoute name="account" path="/account" component={AccountContainer} />
           </Switch>
         </div>
         <BackTopComponent />
@@ -62,6 +59,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   login: auth.actions.login,
+  loginSuccess: auth.actions.loginSuccess,
+  loginFailure: auth.actions.loginFailure,
   logout: auth.actions.logout,
   getUser: user.actions.getUser
 }

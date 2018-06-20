@@ -2,6 +2,7 @@ $main-color: red;
 $padding-left: 1rem;
 @custom-media --viewport-medium screen and (width >=500px) and (width <=1200px);
 html {
+  list-style: none;
   width: 100px;
   height: 100px;
 }
@@ -19,15 +20,12 @@ body {
   background: #000;
 }
 
-
 /* custom-selector */
 
-@custom-selector :--heading h1,
-h2;
+@custom-selector :--heading h1, h2;
 .sub :--heading {
   list-style: none;
 }
-
 
 /*nesting*/
 
@@ -52,7 +50,6 @@ h2;
     color: yellow;
   }
 }
-
 
 /*mixins*/
 
@@ -116,7 +113,6 @@ h2;
   }
   ;
 }
-
 
 /*image-set*/
 

@@ -73,7 +73,7 @@ const common = {
 };
 
 // BUILD
-if(TARGET === 'production') {
+if (TARGET === 'production') {
   module.exports = merge(common, {
     module: {
       rules: [
@@ -110,12 +110,17 @@ if(TARGET === 'production') {
         name: 'manifest'
       },
       splitChunks: {
+        chunks: 'initial', // 只对入口文件处理
         cacheGroups: {
+          commons: {
+            name: 'commons',
+            priority: 0,
+            reuseExistingChunk: true,
+          },
           vendor: {
             test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            priority: 0,
-            chunks: 'all'
+            name: 'vendor',
+            priority: 0
           }
         }
       }
@@ -125,7 +130,7 @@ if(TARGET === 'production') {
 }
 
 // DEV
-if(TARGET === 'start') {
+if (TARGET === 'start') {
   module.exports = merge(common, {
     module: {
       rules: [
