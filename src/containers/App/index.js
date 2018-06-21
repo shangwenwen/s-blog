@@ -22,17 +22,22 @@ import '../../assets/style.css'
 
 class AppContainer extends React.Component {
   componentDidMount() {
-    const { token } = this.props.auth
-
-    if (token && typeof this.props.user.username === 'undefined') {
-      this.props.getUser()
+    if (this.props.auth.token && typeof this.props.user.username === 'undefined') {
+      this.props.loadUser()
     }
   }
 
   render() {
     return (
       <div className="main">
-        <HeaderComponent username={this.props.user.username} onLogin={this.props.login} onGetUser={this.props.getUser} onLogout={this.props.logout} haslogin={this.props.auth.token} history={this.props.history} />
+        <HeaderComponent
+          username={this.props.user.username}
+          onLogin={this.props.authLogin}
+          onGetUser={this.props.loadUser}
+          onLogout={this.props.authLogout}
+          hasLogin={this.props.auth.token}
+          history={this.props.history}
+        />
         <div className="container">
           <Switch>
             <Route exact path="/" component={TopicsContainer} />
@@ -58,11 +63,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-  login: auth.actions.login,
-  loginSuccess: auth.actions.loginSuccess,
-  loginFailure: auth.actions.loginFailure,
-  logout: auth.actions.logout,
-  getUser: user.actions.getUser
+  authLogin: auth.actions.login,
+  authLogout: auth.actions.logout,
+  loadUser: user.actions.load
 }
 
 // 使用 withRouter 传递 history

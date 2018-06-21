@@ -1,22 +1,42 @@
 import constants from './constants'
+import service from './service'
 
-// actions creates
-const login = () => ({
-  type: constants.LOGIN
-})
+function login(username, password) {
+  const request = () => ({
+    type: constants.LOGIN_REQUEST
+  })
 
-const loginSuccess = (user) => ({
-  type: constants.LOGIN_SUCCESS,
-  user
-})
+  const success = (user) => ({
+    type: constants.LOGIN_SUCCESS,
+    user
+  })
 
-const loginFailure = (error) => ({
-  type: constants.LOGIN_FAILURE,
-  error
-})
+  const failure = (error) => ({
+    type: constants.LOGIN_FAILURE,
+    error
+  })
 
-const logout = () => ({
-  type: constants.LOGOUT
-})
+  return async (dispath) => {
+    dispath(request())
+    const { data } = await service.login(username, password)
 
-export default { login, loginSuccess, loginFailure, logout }
+    if (data.code === 200) {
+      return dispath(success(data.user))
+    }
+
+    return dispath(failure(data.error))
+  }
+}
+
+function logout() {
+  const request = () => ({
+    type: constants.LOGOUT_REQUEST
+  })
+
+  return async (dispath) => {
+    dispath(request())
+    await service.logout()
+  }
+}
+
+export default { login, logout }

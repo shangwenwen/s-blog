@@ -23,7 +23,7 @@ class HeaderComponent extends React.Component {
   }
 
   render() {
-    const { haslogin, username } = this.props
+    const { hasLogin, username } = this.props
     return (
       <div>
         <NavLink activeClassName="current" exact to="/">home</NavLink>
@@ -31,7 +31,7 @@ class HeaderComponent extends React.Component {
         <NavLink activeClassName="current" to="/about">about</NavLink>
         <span> / </span>
         {
-          haslogin
+          hasLogin
             ? <span><Link to="/account">{username ? username : <span>welcome</span>}</Link> / <a onClick={this.handleLogout}>logout</a></span>
             : <span><a onClick={this.handleLogin}>login</a> / <a>register</a></span>
         }
