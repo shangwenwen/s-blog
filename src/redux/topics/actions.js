@@ -34,7 +34,7 @@ function load(params) {
 
 const scrollTop = (currentTop) => {
   return (dispatch) => {
-    return dispatch({
+    dispatch({
       type: constants.SCROLL_TOP,
       currentTop
     })
