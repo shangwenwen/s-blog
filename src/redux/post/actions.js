@@ -1,18 +1,32 @@
 import constants from './constants'
+import service from './service'
 
-// action creates
-const load = () => ({
-  type: constants.LOAD
-})
+function load(id) {
+  // action creates
+  const request = () => ({
+    type: constants.LOAD_REQUEST
+  })
 
-const loadSuccess = (data) => ({
-  type: constants.LOAD_SUCCESS,
-  data
-})
+  const success = (data) => ({
+    type: constants.LOAD_SUCCESS,
+    data
+  })
 
-const loadFailure = (error) => ({
-  type: constants.LOAD_FAILURE,
-  error
-})
+  const failure = (error) => ({
+    type: constants.LOAD_FAILURE,
+    error
+  })
 
-export default { load, loadSuccess, loadFailure }
+  return async (dispatch) => {
+    dispatch(request())
+    const { data } = await service.fetchPost(id)
+
+    if (data.code === 200) {
+      return dispatch(success(data.data))
+    }
+
+    return dispatch(failure(data.error))
+  }
+}
+
+export default { load }

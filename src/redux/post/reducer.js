@@ -10,7 +10,7 @@ const initStates = fromJS({
 
 export default function reducer(state = initStates, action) {
   switch (action.type) {
-    case constants.LOAD:
+    case constants.LOAD_REQUEST:
       return state.merge({
         'isPending': true
       })

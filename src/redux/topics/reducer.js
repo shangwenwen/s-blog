@@ -14,7 +14,7 @@ const initStates = fromJS({
 
 export default function reducer(state = initStates, action) {
   switch (action.type) {
-    case constants.LOAD:
+    case constants.LOAD_REQUEST:
       return state.set('isPending', true)
     case constants.LOAD_FAILURE:
       return state.merge({
@@ -35,7 +35,7 @@ export default function reducer(state = initStates, action) {
     }
     case constants.SCROLL_TOP:
       return state.merge({
-        'scrollTop': action.scrollTop,
+        'scrollTop': action.currentTop,
       })
     default:
       return state

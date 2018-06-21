@@ -1,26 +1,44 @@
 import constants from './constants'
+import service from './service'
 
-// action creates
-const load = () => ({
-  type: constants.LOAD
-})
+function load(params) {
+  // action creates
+  const request = () => ({
+    type: constants.LOAD_REQUEST
+  })
 
-const loadSuccess = (list, hasNext, page, pathname) => ({
-  type: constants.LOAD_SUCCESS,
-  page,
-  list,
-  hasNext,
-  pathname
-})
+  const success = (list, hasNext) => ({
+    type: constants.LOAD_SUCCESS,
+    list,
+    hasNext,
+    page: params.page,
+    pathname: params.pathname
+  })
 
-const loadFailure = (error) => ({
-  type: constants.LOAD_FAILURE,
-  error
-})
+  const failure = (error) => ({
+    type: constants.LOAD_FAILURE,
+    error
+  })
 
-const scrollTop = (scrollTop) => ({
-  type: constants.SCROLL_TOP,
-  scrollTop
-})
+  return async (dispatch) => {
+    dispatch(request())
+    const { data } = await service.fetchTopics(params)
+    console.log(data)
+    if (data.code === 200) {
+      return dispatch(success(data.data.list, data.data.hasNext))
+    }
 
-export default { load, loadSuccess, loadFailure, scrollTop }
+    return dispatch(failure('获取数据错误'))
+  }
+}
+
+const scrollTop = (currentTop) => {
+  return (dispatch) => {
+    return dispatch({
+      type: constants.SCROLL_TOP,
+      currentTop
+    })
+  }
+}
+
+export default { load, scrollTop }

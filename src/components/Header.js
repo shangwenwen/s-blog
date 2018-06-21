@@ -25,7 +25,7 @@ class HeaderComponent extends React.Component {
   render() {
     const { hasLogin, username } = this.props
     return (
-      <div>
+      <div className="main-header">
         <NavLink activeClassName="current" exact to="/">home</NavLink>
         <span> / </span>
         <NavLink activeClassName="current" to="/about">about</NavLink>
