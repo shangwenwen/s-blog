@@ -1,8 +1,8 @@
 import constants from './constants'
 import service from './service'
 
-// action creates
 function load(username) {
+  // action creates
   const request = () => ({
     type: constants.LOAD_REQUEST
   })
