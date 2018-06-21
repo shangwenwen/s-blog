@@ -108,7 +108,6 @@ body {
   @mixin placeholder {
     padding: 10px;
   }
-  ;
 }
 
 /*image-set*/
