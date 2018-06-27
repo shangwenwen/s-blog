@@ -23,6 +23,7 @@ const common = {
   entry: './src/index.js',
   output: {
     filename: '[name]_[hash:8].js',
+    chunkFilename: '[name]_[chunkhash:8].js',
     path: OUTPUTPATH,
     publicPath: PUBLICPATH
   },
@@ -110,17 +111,12 @@ if (TARGET === 'production') {
         name: 'manifest'
       },
       splitChunks: {
-        chunks: 'initial', // 只对入口文件处理
         cacheGroups: {
-          commons: {
-            name: 'commons',
-            priority: 0,
-            reuseExistingChunk: true,
-          },
           vendor: {
             test: /[\\/]node_modules[\\/]/,
             name: 'vendor',
-            priority: 0
+            chunks: 'all',
+            enforce: true,
           }
         }
       }

@@ -8,7 +8,7 @@
   "private": true,
   "scripts": {
     "preproduction": "rm -rf dist",
-    "production": "yarn run eslint && webpack --mode production --progress --colors",
+    "production": "yarn run eslint && webpack --mode production --colors",
     "start": "webpack-dev-server --mode development --colors --hot --inline --port 8080",
     "eslint": "eslint --ext .jsx,.js src/ --fix"
   },
