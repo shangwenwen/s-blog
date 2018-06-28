@@ -59,30 +59,24 @@ class TopicsContainer extends React.Component {
     let html = null
 
     if (!topics.pathname) {
-      html = (
-        <div>加载中，请稍等....</div>
-      )
+      html = <div>加载中，请稍等....</div>
     } else if (topics.lists.length > 0) {
       html = (
         <div>
-          {
-            topics.lists.map((item) => {
-              return (
-                <TopicComponent item={item} key={item._id} index={item.id} />
-              )
-            })
-          }
-          {
-            topics.hasNext
-              ? <div onClick={this.handleLoadMore}>加载更多</div>
-              : <div>全部加载完成...</div>
-          }
+        {
+          topics.lists.map(item => {
+            return (<TopicComponent item={item} key={item._id} index={item.id} />)
+          })
+        }
+        {
+          topics.hasNext
+            ? (<div onClick={this.handleLoadMore}>加载更多</div>)
+            : (<div>全部加载完成...</div>)
+        }
         </div>
       )
     } else {
-      html = (
-        <div>当前分类没有文章...</div>
-      )
+      html = <div>当前分类没有文章...</div>
     }
 
     return (
@@ -95,7 +89,7 @@ class TopicsContainer extends React.Component {
 }
 
 // redux connect
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     topics: state.topics.toJS()
   }

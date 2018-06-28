@@ -23,7 +23,6 @@ function load(params) {
   return async (dispatch) => {
     dispatch(request())
     const { data } = await service.fetchTopics(params)
-    console.log(data)
     if (data.code === 200) {
       return dispatch(success(data.data.list, data.data.hasNext))
     }
